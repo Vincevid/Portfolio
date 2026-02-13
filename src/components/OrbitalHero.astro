@@ -1,0 +1,670 @@
+---
+// Orbital animation configuration
+const orbits = [
+  {
+    radius: 250,
+    speed: 20,
+    direction: 'normal',
+    keywords: [
+      { text: 'Designer', angle: 0 },
+      { text: 'Builder', angle: 180 }
+    ]
+  },
+  {
+    radius: 450,
+    speed: 35,
+    direction: 'reverse',
+    keywords: [
+      { text: 'Tinkerer', angle: 0 },
+      { text: 'Maker', angle: 120 },
+      { text: 'Innovator', angle: 240 }
+    ]
+  },
+  {
+    radius: 650,
+    speed: 50,
+    direction: 'normal',
+    keywords: [
+      { text: 'XR Specialist', angle: 0 },
+      { text: 'Product Manager', angle: 90 },
+      { text: 'Aerospace', angle: 180 },
+      { text: 'Technologist', angle: 270 }
+    ]
+  }
+];
+
+// Calculate position using trigonometry
+function calculatePosition(radius: number, angleDeg: number) {
+  const angleRad = (angleDeg * Math.PI) / 180;
+  return {
+    x: radius * Math.cos(angleRad),
+    y: radius * Math.sin(angleRad)
+  };
+}
+---
+
+<section class="orbital-hero" aria-label="Professional skills and expertise">
+  <!-- Particle Canvas for Click Effects -->
+  <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+  <div class="orbital-container">
+    <!-- Nucleus (Name) -->
+    <div class="nucleus">
+      <h1>Vincent Vidaurri</h1>
+      <div class="nucleus-glow"></div>
+    </div>
+
+    <!-- Orbit Paths -->
+    {orbits.map((orbit, orbitIndex) => (
+      <div
+        class={`orbit-path orbit-${orbitIndex + 1}`}
+        style={`width: ${orbit.radius * 2}px; height: ${orbit.radius * 2}px;`}
+        data-speed={orbit.speed}
+        data-direction={orbit.direction}
+      >
+        <div class="orbit-glow"></div>
+        {orbit.keywords.map((keyword) => {
+          const pos = calculatePosition(orbit.radius, keyword.angle);
+          return (
+            <div
+              class="orbit-item"
+              style={`left: ${pos.x + orbit.radius}px; top: ${pos.y + orbit.radius}px;`}
+              data-speed={orbit.speed}
+              data-direction={orbit.direction}
+            >
+              <span class="keyword" data-text={keyword.text}>{keyword.text}</span>
+            </div>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  // Proximity-based hover effect
+  function initProximityEffect() {
+    const hero = document.querySelector('.orbital-hero');
+    const keywords = document.querySelectorAll('.keyword');
+
+    if (!hero) return;
+
+    hero.addEventListener('mousemove', (e) => {
+      const heroRect = hero.getBoundingClientRect();
+      const mouseX = e.clientX - heroRect.left;
+      const mouseY = e.clientY - heroRect.top;
+
+      keywords.forEach((keyword) => {
+        const rect = keyword.getBoundingClientRect();
+        const keywordX = rect.left + rect.width / 2 - heroRect.left;
+        const keywordY = rect.top + rect.height / 2 - heroRect.top;
+
+        const distance = Math.sqrt(
+          Math.pow(mouseX - keywordX, 2) + Math.pow(mouseY - keywordY, 2)
+        );
+
+        // Proximity threshold in pixels
+        const maxDistance = 200;
+
+        if (distance < maxDistance) {
+          const proximity = 1 - (distance / maxDistance);
+          const brightness = 0.5 + (proximity * 0.5); // 0.5 to 1
+          const glowIntensity = proximity * 0.8;
+
+          keyword.style.filter = `brightness(${brightness + 1})`;
+          keyword.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(65, 196, 66, ${glowIntensity}),
+                                     0 4px 8px rgba(0, 0, 0, 0.3)`;
+        } else {
+          keyword.style.filter = 'brightness(1)';
+          keyword.style.boxShadow = '';
+        }
+      });
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      keywords.forEach((keyword) => {
+        keyword.style.filter = 'brightness(1)';
+        keyword.style.boxShadow = '';
+      });
+    });
+  }
+
+  // Click effect with shake and particles
+  function initClickEffect() {
+    const keywords = document.querySelectorAll('.keyword');
+    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+    const ctx = canvas?.getContext('2d');
+
+    if (!canvas || !ctx) return;
+
+    // Set canvas size
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      life: number;
+      maxLife: number;
+      size: number;
+    }> = [];
+
+    // Animation loop for particles
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.1; // Gravity
+        p.life--;
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        const alpha = p.life / p.maxLife;
+        ctx.fillStyle = `rgba(65, 196, 66, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (particles.length > 0) {
+        requestAnimationFrame(animateParticles);
+      }
+    }
+
+    keywords.forEach((keyword) => {
+      keyword.addEventListener('click', (e) => {
+        const rect = keyword.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Shake effect
+        keyword.classList.add('shake');
+        setTimeout(() => keyword.classList.remove('shake'), 500);
+
+        // Create particles
+        for (let i = 0; i < 12; i++) {
+          const angle = (Math.PI * 2 * i) / 12;
+          const speed = 2 + Math.random() * 3;
+          particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 60,
+            maxLife: 60,
+            size: 3 + Math.random() * 3
+          });
+        }
+
+        if (particles.length === 12) {
+          animateParticles();
+        }
+      });
+    });
+  }
+
+  // Initialize effects when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initProximityEffect();
+      initClickEffect();
+    });
+  } else {
+    initProximityEffect();
+    initClickEffect();
+  }
+</script>
+
+<style>
+  /* ========================================
+     Orbital Hero Container
+     ======================================== */
+
+  .orbital-hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+    overflow: visible;
+    opacity: 0;
+    animation: fadeInOrbital 0.8s ease-out 0.2s forwards;
+  }
+
+  @keyframes fadeInOrbital {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+
+  /* ========================================
+     Particle Canvas
+     ======================================== */
+
+  .particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .orbital-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ========================================
+     Nucleus (Name)
+     ======================================== */
+
+  .nucleus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+  }
+
+  .nucleus h1 {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-5xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    text-shadow: 0 0 40px rgba(65, 196, 66, 0.3),
+                 0 0 80px rgba(65, 196, 66, 0.1);
+    position: relative;
+    z-index: 2;
+  }
+
+  .nucleus-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(65, 196, 66, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: nucleusPulse 4s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  @keyframes nucleusPulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 0.7;
+    }
+  }
+
+  /* ========================================
+     Orbit Paths
+     ======================================== */
+
+  .orbit-path {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(65, 196, 66, 0.2);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  .orbit-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 20px rgba(65, 196, 66, 0.1),
+      0 0 20px rgba(65, 196, 66, 0.05);
+    animation: orbitGlowPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes orbitGlowPulse {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Orbit 1 - Inner orbit (20s) */
+  .orbit-1 {
+    animation: rotateOrbit 20s linear infinite;
+  }
+
+  /* Orbit 2 - Middle orbit (35s, reverse) */
+  .orbit-2 {
+    animation: rotateOrbit 35s linear infinite reverse;
+  }
+
+  /* Orbit 3 - Outer orbit (50s) */
+  .orbit-3 {
+    animation: rotateOrbit 50s linear infinite;
+  }
+
+  @keyframes rotateOrbit {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* ========================================
+     Orbit Items (Keywords)
+     ======================================== */
+
+  .orbit-item {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Counter-rotate items to keep text upright */
+  .orbit-1 .orbit-item {
+    animation: counterRotate 20s linear infinite;
+  }
+
+  .orbit-2 .orbit-item {
+    animation: counterRotate 35s linear infinite reverse;
+  }
+
+  .orbit-3 .orbit-item {
+    animation: counterRotate 50s linear infinite;
+  }
+
+  @keyframes counterRotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(-360deg);
+    }
+  }
+
+  .keyword {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background-color: rgba(45, 45, 45, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(65, 196, 66, 0.2);
+    white-space: nowrap;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .keyword::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius-md);
+    padding: 1px;
+    background: linear-gradient(135deg,
+      rgba(65, 196, 66, 0.4),
+      transparent 50%,
+      rgba(65, 196, 66, 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .keyword:hover::before {
+    opacity: 1;
+  }
+
+  /* Shake animation for click effect */
+  .keyword.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  }
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate(-50%, -50%) rotate(-1deg);
+    }
+    20%, 80% {
+      transform: translate(-50%, -50%) rotate(2deg);
+    }
+    30%, 50%, 70% {
+      transform: translate(-50%, -50%) rotate(-3deg);
+    }
+    40%, 60% {
+      transform: translate(-50%, -50%) rotate(3deg);
+    }
+  }
+
+  /* ========================================
+     Responsive Design - Tablet
+     ======================================== */
+
+  @media (max-width: 768px) {
+    .orbital-hero {
+      min-height: 60vh;
+    }
+
+    .nucleus h1 {
+      font-size: var(--font-size-4xl);
+    }
+
+    .nucleus-glow {
+      width: 200px;
+      height: 200px;
+    }
+
+    /* Scale down orbits to 60% */
+    .orbit-1 {
+      width: 150px !important;
+      height: 150px !important;
+    }
+
+    .orbit-2 {
+      width: 270px !important;
+      height: 270px !important;
+    }
+
+    .orbit-3 {
+      width: 390px !important;
+      height: 390px !important;
+    }
+
+    /* Recalculate positions for scaled orbits */
+    .orbit-1 .orbit-item:nth-child(1) {
+      left: 150px !important;
+      top: 75px !important;
+    }
+
+    .orbit-1 .orbit-item:nth-child(2) {
+      left: 0px !important;
+      top: 75px !important;
+    }
+
+    .orbit-2 .orbit-item:nth-child(1) {
+      left: 270px !important;
+      top: 135px !important;
+    }
+
+    .orbit-2 .orbit-item:nth-child(2) {
+      left: 67.5px !important;
+      top: 252px !important;
+    }
+
+    .orbit-2 .orbit-item:nth-child(3) {
+      left: 67.5px !important;
+      top: 18px !important;
+    }
+
+    .orbit-3 .orbit-item:nth-child(1) {
+      left: 390px !important;
+      top: 195px !important;
+    }
+
+    .orbit-3 .orbit-item:nth-child(2) {
+      left: 195px !important;
+      top: 0px !important;
+    }
+
+    .orbit-3 .orbit-item:nth-child(3) {
+      left: 0px !important;
+      top: 195px !important;
+    }
+
+    .orbit-3 .orbit-item:nth-child(4) {
+      left: 195px !important;
+      top: 390px !important;
+    }
+
+    .keyword {
+      font-size: var(--font-size-sm);
+      padding: var(--spacing-xs) var(--spacing-sm);
+    }
+  }
+
+  /* ========================================
+     Responsive Design - Mobile
+     ======================================== */
+
+  @media (max-width: 480px) {
+    .orbital-hero {
+      min-height: 50vh;
+    }
+
+    .nucleus h1 {
+      font-size: var(--font-size-3xl);
+    }
+
+    .nucleus-glow {
+      width: 150px;
+      height: 150px;
+    }
+
+    /* Hide outer orbit on mobile */
+    .orbit-3 {
+      display: none;
+    }
+
+    /* Scale down to 2 orbits */
+    .orbit-1 {
+      width: 120px !important;
+      height: 120px !important;
+    }
+
+    .orbit-2 {
+      width: 220px !important;
+      height: 220px !important;
+    }
+
+    /* Recalculate positions for mobile */
+    .orbit-1 .orbit-item:nth-child(1) {
+      left: 120px !important;
+      top: 60px !important;
+    }
+
+    .orbit-1 .orbit-item:nth-child(2) {
+      left: 0px !important;
+      top: 60px !important;
+    }
+
+    .orbit-2 .orbit-item:nth-child(1) {
+      left: 220px !important;
+      top: 110px !important;
+    }
+
+    .orbit-2 .orbit-item:nth-child(2) {
+      left: 55px !important;
+      top: 205px !important;
+    }
+
+    .orbit-2 .orbit-item:nth-child(3) {
+      left: 55px !important;
+      top: 15px !important;
+    }
+
+    .keyword {
+      font-size: var(--font-size-xs);
+      padding: var(--spacing-xs) var(--spacing-sm);
+    }
+  }
+
+  /* ========================================
+     Accessibility - Reduced Motion
+     ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbital-hero {
+      animation: none;
+      opacity: 1;
+    }
+
+    .gradient-mesh {
+      animation: none;
+    }
+
+    .orbit-path {
+      animation: none !important;
+    }
+
+    .orbit-item {
+      animation: none !important;
+    }
+
+    .orbit-glow {
+      animation: none;
+    }
+
+    .nucleus-glow {
+      animation: none;
+    }
+
+    .keyword.shake {
+      animation: none;
+    }
+
+    /* Static circular layout when motion is reduced */
+    .orbit-path {
+      opacity: 0.3;
+    }
+  }
+</style>

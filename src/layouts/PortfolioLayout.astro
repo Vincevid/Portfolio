@@ -21,12 +21,18 @@ const { title, description } = Astro.props;
   <title>{title} | Vincent Vidaurri</title>
   {description && <meta name="description" content={description} />}
 
-  <!-- Google Fonts - Roboto -->
+  <!-- Fonts - Clash Display & Satoshi -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Cloud Texture Background -->
+  <div class="cloud-background"></div>
+
+  <!-- Dark Overlay to tone down brightness -->
+  <div class="background-overlay"></div>
+
   <div class="layout">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
@@ -42,9 +48,51 @@ const { title, description } = Astro.props;
 </html>
 
 <style>
+  /* ========================================
+     Cloud Texture Background
+     ======================================== */
+
+  .cloud-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('/cloud.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    mix-blend-mode: screen;
+    animation: cloudDrift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes cloudDrift {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.2) translate(2.5%, 2.5%);
+    }
+  }
+
+  /* Dark overlay to reduce cloud brightness */
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: rgba(26, 26, 26, 0.7);
+    pointer-events: none;
+  }
+
   .layout {
     display: flex;
     min-height: 100vh;
+    position: relative;
   }
 
   .sidebar {
@@ -61,7 +109,6 @@ const { title, description } = Astro.props;
     margin-left: var(--sidebar-width);
     flex: 1;
     padding: 3rem 4rem;
-    max-width: 1400px;
   }
 
   /* Responsive layout */
@@ -81,4 +128,12 @@ const { title, description } = Astro.props;
       padding: 2rem 1.5rem;
     }
   }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .cloud-background {
+      animation: none;
+    }
+  }
+
 </style>
