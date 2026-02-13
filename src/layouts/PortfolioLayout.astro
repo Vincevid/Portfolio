@@ -1,0 +1,84 @@
+---
+// layouts/PortfolioLayout.astro
+// Main layout for portfolio pages
+
+import Navigation from '../components/Navigation.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | Vincent Vidaurri</title>
+  {description && <meta name="description" content={description} />}
+
+  <!-- Google Fonts - Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <Navigation />
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <slot />
+    </main>
+  </div>
+</body>
+</html>
+
+<style>
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding: 61px 69px;
+    background-color: var(--color-bg);
+    z-index: 100;
+  }
+
+  .content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 3rem 4rem;
+    max-width: 1400px;
+  }
+
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    .layout {
+      flex-direction: column;
+    }
+
+    .sidebar {
+      position: relative;
+      height: auto;
+      padding: 1.5rem;
+    }
+
+    .content {
+      margin-left: 0;
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>

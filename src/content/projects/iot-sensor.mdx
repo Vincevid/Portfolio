@@ -1,0 +1,58 @@
+---
+title: "IoT Environmental Sensor Network"
+description: "Real-time environmental monitoring system for NASA research facilities"
+date: 2023-11-20
+tags: ["IoT", "Hardware", "Data Visualization"]
+heroImage: "/images/projects/iot-hero.svg"
+role: "Systems Engineer"
+company: "NASA"
+featured: true
+duration: "12 months"
+technologies: ["Arduino", "MQTT", "Node.js", "InfluxDB", "Grafana"]
+---
+
+## Overview
+
+Designed and deployed a distributed IoT sensor network to monitor environmental conditions across NASA research facilities, enabling real-time data collection and predictive maintenance.
+
+## Problem Statement
+
+Research facilities required:
+- Continuous monitoring of temperature, humidity, and air quality
+- Early detection of HVAC system failures
+- Historical data analysis for compliance reporting
+- Low-cost, scalable solution
+
+## Solution Approach
+
+Built a distributed sensor network:
+1. Custom sensor nodes with ESP32 microcontrollers
+2. MQTT message broker for data transmission
+3. Time-series database for storage
+4. Real-time dashboard with alerting
+
+## Technical Implementation
+
+**Hardware Design:**
+- 50+ sensor nodes across 3 facilities
+- Battery life: 6-8 months on single charge
+- Wireless mesh network topology
+- IP65-rated weatherproof enclosures
+
+**Software Architecture:**
+- MQTT pub/sub messaging pattern
+- InfluxDB for time-series storage
+- Node.js backend for data processing
+- Grafana dashboards with custom alerts
+
+**Data Pipeline:**
+```
+Sensors → MQTT Broker → Node.js Service → InfluxDB → Grafana
+```
+
+## Results & Impact
+
+- **99.7% uptime** across all sensor nodes
+- **$50,000 savings** from prevented equipment failures
+- **3 facility managers** using system daily
+- **2 years** of historical environmental data collected

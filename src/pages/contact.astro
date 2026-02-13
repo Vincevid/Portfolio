@@ -1,0 +1,301 @@
+---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+---
+
+<PortfolioLayout
+  title="Contact"
+  description="Get in touch with Vincent Vidaurri"
+>
+  <div class="contact">
+    <header class="contact-header">
+      <h1>Get in Touch</h1>
+      <p class="subtitle">
+        I'm always interested in hearing about new opportunities, collaborations, or just chatting
+        about aerospace, XR, and product design.
+      </p>
+    </header>
+
+    <div class="contact-content">
+      <!-- Contact Form -->
+      <section class="contact-form-section">
+        <h2>Send a Message</h2>
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <!-- Hidden fields for Netlify -->
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden">
+            <label>
+              Don't fill this out if you're human: <input name="bot-field" />
+            </label>
+          </p>
+
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Your name"
+            />
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          <!-- Subject Field -->
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              required
+              placeholder="What's this about?"
+            />
+          </div>
+
+          <!-- Message Field -->
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="6"
+              placeholder="Your message..."
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="submit-button">
+            Send Message
+          </button>
+        </form>
+      </section>
+
+      <!-- Contact Information -->
+      <aside class="contact-info">
+        <h2>Other Ways to Connect</h2>
+
+        <div class="info-section">
+          <h3>Email</h3>
+          <a href="mailto:vincent@example.com" class="contact-link">
+            vincent@example.com
+          </a>
+        </div>
+
+        <div class="info-section">
+          <h3>Location</h3>
+          <p class="info-text">Seattle, WA</p>
+        </div>
+
+        <div class="info-section">
+          <h3>Social</h3>
+          <div class="social-links">
+            <a href="https://linkedin.com/in/vincentvidaurri" target="_blank" rel="noopener noreferrer" class="social-link">
+              LinkedIn
+            </a>
+            <a href="https://github.com/vincentvidaurri" target="_blank" rel="noopener noreferrer" class="social-link">
+              GitHub
+            </a>
+            <a href="https://twitter.com/vincentvidaurri" target="_blank" rel="noopener noreferrer" class="social-link">
+              Twitter
+            </a>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>Response Time</h3>
+          <p class="info-text">
+            I typically respond within 24-48 hours during business days.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</PortfolioLayout>
+
+<style>
+  .contact {
+    max-width: 1000px;
+  }
+
+  .contact-header {
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .contact-header h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    line-height: 1.7;
+  }
+
+  /* Contact Content Layout */
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--spacing-3xl);
+  }
+
+  /* Form Section */
+  .contact-form-section h2,
+  .contact-info h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .form-group label {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-base);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .submit-button {
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    align-self: flex-start;
+  }
+
+  .submit-button:hover {
+    background-color: transparent;
+    color: var(--color-text);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Contact Info Sidebar */
+  .contact-info {
+    background-color: var(--color-bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    height: fit-content;
+  }
+
+  .info-section {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .info-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .info-section h3 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: var(--font-size-sm);
+  }
+
+  .contact-link {
+    display: block;
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent);
+  }
+
+  .info-text {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .social-link {
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    transition: color var(--transition-base);
+    padding: var(--spacing-xs) 0;
+  }
+
+  .social-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contact-content {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-info {
+      order: -1;
+    }
+  }
+</style>

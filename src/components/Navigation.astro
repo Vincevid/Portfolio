@@ -1,0 +1,157 @@
+---
+// Navigation.astro
+// Portfolio navigation component
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+// Navigation structure
+const navigation = {
+  mainLinks: [
+    { name: 'Projects', href: '/projects' }
+  ],
+  bottomLinks: [
+    { name: 'Resume', href: '/resume' },
+    { name: 'Contact', href: '/contact' }
+  ]
+};
+
+// Helper to check if link is active
+const isActive = (href: string) => currentPath === href || currentPath.startsWith(href + '/');
+---
+
+<nav class="portfolio-nav">
+  <!-- Logo -->
+  <a href="/" class="logo-wrapper">
+    <div class="logo">
+      <img src="/images/logo/logo.svg" alt="Vincent Vidaurri Logo" class="logo-image" />
+    </div>
+  </a>
+
+  <!-- Navigation Sections -->
+  <div class="nav-content">
+    <!-- Main Links Section -->
+    <section class="nav-section">
+      <ul class="nav-list">
+        {navigation.mainLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={['nav-link', { active: isActive(link.href) }]}
+            >
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Bottom Links -->
+    <div class="bottom-links">
+      {navigation.bottomLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={['nav-link', { active: isActive(link.href) }]}
+        >
+          {link.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .portfolio-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 155px;
+    padding: 10px;
+    position: relative;
+  }
+
+  /* Logo Styles */
+  .logo-wrapper {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .logo-wrapper:hover {
+    transform: scale(1.05);
+  }
+
+  .logo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Navigation Content */
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    flex: 1;
+  }
+
+  .nav-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .nav-link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #808285;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: #a0a2a5;
+  }
+
+  .nav-link.active {
+    color: #ffffff;
+  }
+
+  .bottom-links {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .portfolio-nav {
+      width: 100%;
+      max-width: 155px;
+      gap: 20px;
+    }
+  }
+</style>

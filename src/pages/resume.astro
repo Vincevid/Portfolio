@@ -1,0 +1,337 @@
+---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+---
+
+<PortfolioLayout
+  title="Resume"
+  description="Vincent Vidaurri's professional experience in aerospace, XR, and product management"
+>
+  <div class="resume">
+    <header class="resume-header">
+      <h1>Resume</h1>
+      <p class="subtitle">Product Manager & Designer specializing in aerospace and XR technologies</p>
+    </header>
+
+    <!-- Work Experience -->
+    <section class="resume-section">
+      <h2 class="section-title">Work Experience</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Product Designer</h3>
+            <p class="company">Blue Origin</p>
+            <p class="duration">2022 - 2024</p>
+            <ul class="responsibilities">
+              <li>Led design of internal fleet management tools, resulting in 20% operational efficiency improvement</li>
+              <li>Developed design systems for spacecraft interface controls</li>
+              <li>Collaborated with engineering teams on AR visualization tools for spacecraft assembly</li>
+              <li>Conducted user research with astronauts and mission control personnel</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Systems Engineer</h3>
+            <p class="company">NASA</p>
+            <p class="duration">2019 - 2022</p>
+            <ul class="responsibilities">
+              <li>Designed and deployed IoT sensor networks across research facilities</li>
+              <li>Built real-time monitoring dashboards for environmental data analysis</li>
+              <li>Developed predictive maintenance algorithms, preventing $50K+ in equipment failures</li>
+              <li>Collaborated on XR training simulations for astronaut preparation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Product Manager</h3>
+            <p class="company">Tech Startup</p>
+            <p class="duration">2017 - 2019</p>
+            <ul class="responsibilities">
+              <li>Managed product roadmap for B2B SaaS platform</li>
+              <li>Led cross-functional teams of designers and engineers</li>
+              <li>Launched 3 major features resulting in 40% user growth</li>
+              <li>Implemented data-driven decision making processes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="resume-section">
+      <h2 class="section-title">Skills & Expertise</h2>
+
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>AR/VR/XR Development</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Unity</span>
+            <span class="skill-tag">Unreal Engine</span>
+            <span class="skill-tag">ARKit</span>
+            <span class="skill-tag">WebXR</span>
+            <span class="skill-tag">Spatial Computing</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Product Management</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Agile/Scrum</span>
+            <span class="skill-tag">User Research</span>
+            <span class="skill-tag">Roadmap Planning</span>
+            <span class="skill-tag">Data Analytics</span>
+            <span class="skill-tag">Stakeholder Management</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Design Systems</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Design Tokens</span>
+            <span class="skill-tag">Component Libraries</span>
+            <span class="skill-tag">Accessibility (WCAG)</span>
+            <span class="skill-tag">Prototyping</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Technical</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">JavaScript/TypeScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">IoT Systems</span>
+            <span class="skill-tag">API Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="resume-section">
+      <h2 class="section-title">Education</h2>
+      <div class="education-item">
+        <h3>Bachelor of Science in Computer Science</h3>
+        <p class="institution">University Name</p>
+        <p class="duration">2013 - 2017</p>
+        <p class="details">Focus on Human-Computer Interaction and Software Engineering</p>
+      </div>
+    </section>
+
+    <!-- Download PDF -->
+    <div class="resume-actions">
+      <a href="/resume.pdf" download class="download-button">
+        Download PDF Resume
+      </a>
+    </div>
+  </div>
+</PortfolioLayout>
+
+<style>
+  .resume {
+    max-width: 900px;
+  }
+
+  .resume-header {
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .resume-header h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  /* Sections */
+  .resume-section {
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: var(--spacing-2xl);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: calc(-1 * var(--spacing-2xl) - 6px);
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-text);
+    border: 3px solid var(--color-bg);
+  }
+
+  .timeline-content h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .company {
+    font-size: var(--font-size-base);
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .duration {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .responsibilities {
+    list-style: disc;
+    padding-left: var(--spacing-lg);
+  }
+
+  .responsibilities li {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.6;
+  }
+
+  /* Skills Grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .skill-category h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .skill-tag {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Education */
+  .education-item h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .institution {
+    font-size: var(--font-size-base);
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .details {
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-sm);
+  }
+
+  /* Actions */
+  .resume-actions {
+    margin-top: var(--spacing-3xl);
+    padding-top: var(--spacing-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+
+  .download-button:hover {
+    background-color: transparent;
+    color: var(--color-text);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline {
+      padding-left: var(--spacing-lg);
+    }
+
+    .timeline-marker {
+      left: calc(-1 * var(--spacing-lg) - 6px);
+    }
+  }
+
+  /* Print Styles */
+  @media print {
+    .resume-actions {
+      display: none;
+    }
+
+    .timeline::before {
+      background: #000;
+    }
+
+    .section-title {
+      border-bottom-color: #000;
+    }
+  }
+</style>
