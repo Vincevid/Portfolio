@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Refrence folder
 Refrence/
+
+# Dev tools (development only, not for production)
+dev-tools/
