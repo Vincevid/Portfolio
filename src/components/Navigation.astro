@@ -10,8 +10,14 @@ const { currentPath = Astro.url.pathname } = Astro.props;
 
 // Navigation structure
 const navigation = {
-  mainLinks: [
-    { name: 'Projects', href: '/projects' }
+  sections: [
+    {
+      heading: 'Projects',
+      href: '/projects',
+      items: [
+        { name: 'Stitch Out', href: '/projects/embroidery-analyzer' }
+      ]
+    }
   ],
   bottomLinks: [
     { name: 'Resume', href: '/resume' },
@@ -21,6 +27,12 @@ const navigation = {
 
 // Helper to check if link is active
 const isActive = (href: string) => currentPath === href || currentPath.startsWith(href + '/');
+
+// Helper to check if a section is active (heading or any child item)
+const isSectionActive = (section: typeof navigation.sections[0]) => {
+  if (isActive(section.href)) return true;
+  return section.items.some(item => isActive(item.href));
+};
 ---
 
 <nav class="portfolio-nav">
@@ -33,21 +45,29 @@ const isActive = (href: string) => currentPath === href || currentPath.startsWit
 
   <!-- Navigation Sections -->
   <div class="nav-content">
-    <!-- Main Links Section -->
-    <section class="nav-section">
-      <ul class="nav-list">
-        {navigation.mainLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class:list={['nav-link', { active: isActive(link.href) }]}
-            >
-              {link.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <!-- Sections (Projects, etc.) -->
+    {navigation.sections.map((section) => (
+      <section class="nav-section">
+        <a
+          href={section.href}
+          class:list={['nav-heading', { active: isSectionActive(section) }]}
+        >
+          {section.heading}
+        </a>
+        <ul class="nav-list">
+          {section.items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', 'nav-sublink', { active: isActive(item.href) }]}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
 
     <!-- Bottom Links -->
     <div class="bottom-links">
@@ -114,10 +134,29 @@ const isActive = (href: string) => currentPath === href || currentPath.startsWit
   .nav-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 0;
+    gap: 5px;
+    padding: 0 0 0 10px;
     margin: 0;
     list-style: none;
+  }
+
+  /* Section heading (clickable) */
+  .nav-heading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #808285;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+  }
+
+  .nav-heading:hover {
+    color: #a0a2a5;
+  }
+
+  .nav-heading.active {
+    color: #ffffff;
   }
 
   .nav-link {
@@ -137,6 +176,11 @@ const isActive = (href: string) => currentPath === href || currentPath.startsWit
 
   .nav-link.active {
     color: #ffffff;
+  }
+
+  /* Sub-item specific styles */
+  .nav-sublink {
+    font-size: 16px;
   }
 
   .bottom-links {
