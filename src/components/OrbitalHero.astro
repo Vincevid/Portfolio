@@ -1,8 +1,8 @@
 ---
-// Orbital animation configuration
+// Orbital animation configuration - using vh units for responsive sizing
 const orbits = [
   {
-    radius: 250,
+    radius: '18vh', // ~18% of viewport height
     speed: 20,
     direction: 'normal',
     keywords: [
@@ -11,7 +11,7 @@ const orbits = [
     ]
   },
   {
-    radius: 450,
+    radius: '30vh', // ~30% of viewport height
     speed: 35,
     direction: 'reverse',
     keywords: [
@@ -21,7 +21,7 @@ const orbits = [
     ]
   },
   {
-    radius: 650,
+    radius: '43vh', // ~43% of viewport height
     speed: 50,
     direction: 'normal',
     keywords: [
@@ -33,12 +33,12 @@ const orbits = [
   }
 ];
 
-// Calculate position using trigonometry
-function calculatePosition(radius: number, angleDeg: number) {
+// Calculate position using trigonometry - returns percentage of radius
+function calculatePosition(angleDeg: number) {
   const angleRad = (angleDeg * Math.PI) / 180;
   return {
-    x: radius * Math.cos(angleRad),
-    y: radius * Math.sin(angleRad)
+    x: Math.cos(angleRad),
+    y: Math.sin(angleRad)
   };
 }
 ---
@@ -58,17 +58,17 @@ function calculatePosition(radius: number, angleDeg: number) {
     {orbits.map((orbit, orbitIndex) => (
       <div
         class={`orbit-path orbit-${orbitIndex + 1}`}
-        style={`width: ${orbit.radius * 2}px; height: ${orbit.radius * 2}px;`}
+        style={`width: calc(${orbit.radius} * 2); height: calc(${orbit.radius} * 2);`}
         data-speed={orbit.speed}
         data-direction={orbit.direction}
       >
         <div class="orbit-glow"></div>
         {orbit.keywords.map((keyword) => {
-          const pos = calculatePosition(orbit.radius, keyword.angle);
+          const pos = calculatePosition(keyword.angle);
           return (
             <div
               class="orbit-item"
-              style={`left: ${pos.x + orbit.radius}px; top: ${pos.y + orbit.radius}px;`}
+              style={`left: calc(${orbit.radius} * ${pos.x + 1}); top: calc(${orbit.radius} * ${pos.y + 1});`}
               data-speed={orbit.speed}
               data-direction={orbit.direction}
             >
@@ -233,11 +233,10 @@ function calculatePosition(radius: number, angleDeg: number) {
      ======================================== */
 
   .orbital-hero {
-    min-height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--spacing-3xl);
     position: relative;
     overflow: visible;
     opacity: 0;
@@ -275,6 +274,8 @@ function calculatePosition(radius: number, angleDeg: number) {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Shift left by half sidebar width to center in actual viewport */
+    transform: translateX(calc(var(--sidebar-width) / -2));
   }
 
   /* ========================================
@@ -478,16 +479,16 @@ function calculatePosition(radius: number, angleDeg: number) {
 
   @keyframes shake {
     10%, 90% {
-      transform: translate(-50%, -50%) rotate(-1deg);
+      transform: rotate(-3deg);
     }
     20%, 80% {
-      transform: translate(-50%, -50%) rotate(2deg);
+      transform: rotate(6deg);
     }
     30%, 50%, 70% {
-      transform: translate(-50%, -50%) rotate(-3deg);
+      transform: rotate(-9deg);
     }
     40%, 60% {
-      transform: translate(-50%, -50%) rotate(3deg);
+      transform: rotate(6deg);
     }
   }
 

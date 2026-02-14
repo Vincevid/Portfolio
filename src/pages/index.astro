@@ -10,59 +10,265 @@ import OrbitalHero from '../components/OrbitalHero.astro';
   <!-- Orbital Hero Section -->
   <OrbitalHero />
 
-  <!-- Brief Bio Section -->
-  <section class="bio">
-    <h2 class="section-title">About Me</h2>
-    <div class="bio-content">
-      <p>
-        With a background spanning NASA's cutting-edge research initiatives and Blue Origin's
-        commercial spaceflight programs, I bring a unique perspective to product design and management.
-        My expertise lies in translating complex technical requirements into intuitive, user-centered experiences.
-      </p>
-      <p>
-        I specialize in AR/VR/XR technologies, design systems, and building products that blend
-        hardware and software seamlessly. Whether it's developing IoT sensor networks for research
-        facilities or creating AI-powered analysis tools, I'm driven by the challenge of solving
-        meaningful problems through thoughtful design and engineering.
-      </p>
+  <!-- Mission Statement -->
+  <section class="mission">
+    <div class="mission-grid">
+      <div class="mission-label">
+        <span class="label-text">Mission Profile</span>
+        <div class="label-line"></div>
+      </div>
+      <div class="mission-content">
+        <p class="mission-primary">
+          Building the future at the intersection of <span class="highlight">aerospace</span>,
+          <span class="highlight">extended reality</span>, and <span class="highlight">human-centered design</span>.
+        </p>
+        <p class="mission-secondary">
+          From NASA's research labs to Blue Origin's commercial spaceflight programs,
+          I translate complex technical systems into intuitive experiences. Specializing
+          in AR/VR/XR, IoT sensor networks, and AI-powered tools that push the boundaries
+          of what's possible.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Grid -->
+  <section class="capabilities">
+    <div class="capabilities-header">
+      <span class="label-text">Core Capabilities</span>
+      <div class="label-line"></div>
+    </div>
+    <div class="capabilities-grid">
+      <div class="capability-card">
+        <div class="capability-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3>Product Strategy</h3>
+        <p>Defining product vision and roadmaps for cutting-edge technologies</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+          </svg>
+        </div>
+        <h3>XR/Immersive Tech</h3>
+        <p>AR/VR applications bridging digital and physical worlds</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3>Systems Design</h3>
+        <p>IoT networks and hardware-software integration at scale</p>
+      </div>
     </div>
   </section>
 
   <!-- CTA Section -->
   <section class="cta">
-    <div class="cta-buttons">
-      <a href="/projects" class="cta-button primary">View All Projects</a>
-      <a href="/contact" class="cta-button secondary">Get in Touch</a>
+    <div class="cta-container">
+      <div class="cta-content">
+        <h2>Ready to collaborate?</h2>
+        <p>Let's build something extraordinary together.</p>
+      </div>
+      <div class="cta-buttons">
+        <a href="/projects" class="cta-button primary">
+          <span>Explore Projects</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="/contact" class="cta-button secondary">
+          <span>Contact</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 </PortfolioLayout>
 
 <style>
   /* ========================================
-     Bio Section
+     Mission Statement Section
      ======================================== */
 
-  .section-title {
-    font-family: var(--font-family-display);
-    font-size: var(--font-size-3xl);
+  .mission {
+    margin: var(--spacing-3xl) 0;
+    padding: var(--spacing-3xl) 0;
+    position: relative;
+  }
+
+  .mission::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -4rem;
+    right: -4rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(65, 196, 66, 0.3) 20%,
+      rgba(65, 196, 66, 0.3) 80%,
+      transparent
+    );
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-2xl);
+    align-items: start;
+  }
+
+  .mission-label,
+  .capabilities-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    white-space: nowrap;
     font-weight: 600;
-    margin-bottom: var(--spacing-2xl);
-    color: var(--color-text);
   }
 
-  .bio {
-    margin-bottom: var(--spacing-3xl);
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
   }
 
-  .bio-content {
+  .mission-content {
     max-width: 800px;
   }
 
-  .bio-content p {
+  .mission-primary {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-2xl);
+    line-height: 1.5;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xl);
+    font-weight: 500;
+  }
+
+  .mission-primary .highlight {
+    color: var(--color-brand);
+    position: relative;
+    font-weight: 600;
+  }
+
+  .mission-secondary {
     font-size: var(--font-size-lg);
-    color: var(--color-text-secondary);
     line-height: 1.8;
+    color: var(--color-text-secondary);
+  }
+
+  /* ========================================
+     Capabilities Grid Section
+     ======================================== */
+
+  .capabilities {
+    margin: var(--spacing-3xl) 0;
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .capabilities-header {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .capability-card {
+    background: linear-gradient(
+      135deg,
+      rgba(45, 45, 45, 0.4),
+      rgba(35, 35, 35, 0.6)
+    );
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .capability-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-brand),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .capability-card:hover {
+    border-color: rgba(65, 196, 66, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(65, 196, 66, 0.15);
+  }
+
+  .capability-card:hover::before {
+    opacity: 1;
+  }
+
+  .capability-icon {
+    width: 48px;
+    height: 48px;
     margin-bottom: var(--spacing-lg);
+    color: var(--color-brand);
+    opacity: 0.8;
+    transition: all var(--transition-base);
+  }
+
+  .capability-card:hover .capability-icon {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .capability-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .capability-card h3 {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .capability-card p {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 0;
   }
 
   /* ========================================
@@ -70,8 +276,47 @@ import OrbitalHero from '../components/OrbitalHero.astro';
      ======================================== */
 
   .cta {
-    margin-bottom: var(--spacing-3xl);
+    margin: var(--spacing-3xl) 0 var(--spacing-3xl) 0;
     padding: var(--spacing-3xl) 0;
+    position: relative;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -4rem;
+    right: -4rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(65, 196, 66, 0.3) 20%,
+      rgba(65, 196, 66, 0.3) 80%,
+      transparent
+    );
+  }
+
+  .cta-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-2xl);
+    flex-wrap: wrap;
+  }
+
+  .cta-content h2 {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .cta-content p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
   }
 
   .cta-buttons {
@@ -83,34 +328,78 @@ import OrbitalHero from '../components/OrbitalHero.astro';
   .cta-button {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: var(--spacing-md) var(--spacing-2xl);
-    font-size: var(--font-size-lg);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-base);
     font-weight: 500;
-    border-radius: var(--radius-md);
+    font-family: var(--font-family-display);
+    border: 1px solid;
     text-decoration: none;
     transition: all var(--transition-base);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-button svg {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--transition-base);
   }
 
   .cta-button.primary {
     background-color: var(--color-brand);
     color: var(--color-bg);
-    border: 2px solid var(--color-brand);
-    box-shadow: 0 0 20px rgba(65, 196, 66, 0.3);
+    border-color: var(--color-brand);
+    clip-path: polygon(
+      0 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .cta-button.primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left var(--transition-slow);
+  }
+
+  .cta-button.primary:hover::before {
+    left: 100%;
   }
 
   .cta-button.primary:hover {
-    background-color: transparent;
-    color: var(--color-brand);
+    box-shadow: 0 0 30px rgba(65, 196, 66, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(65, 196, 66, 0.5), var(--shadow-md);
+  }
+
+  .cta-button.primary:hover svg {
+    transform: translateX(4px);
   }
 
   .cta-button.secondary {
     background-color: transparent;
     color: var(--color-text);
-    border: 2px solid var(--color-border);
+    border-color: var(--color-border);
+    clip-path: polygon(
+      12px 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 12px
+    );
   }
 
   .cta-button.secondary:hover {
@@ -118,21 +407,63 @@ import OrbitalHero from '../components/OrbitalHero.astro';
     border-color: var(--color-brand);
     color: var(--color-brand);
     transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(65, 196, 66, 0.2);
+  }
+
+  .cta-button.secondary:hover svg {
+    transform: scale(1.1);
   }
 
   /* ========================================
-     Responsive Design
+     Responsive Design - Tablet
+     ======================================== */
+
+  @media (max-width: 968px) {
+    .mission-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .capabilities-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* ========================================
+     Responsive Design - Mobile
      ======================================== */
 
   @media (max-width: 768px) {
+    .mission::before,
+    .cta::before {
+      left: -1.5rem;
+      right: -1.5rem;
+    }
+
+    .mission-primary {
+      font-size: var(--font-size-xl);
+    }
+
+    .mission-secondary {
+      font-size: var(--font-size-base);
+    }
+
+    .cta-content h2 {
+      font-size: var(--font-size-2xl);
+    }
+
     .cta-buttons {
-      flex-direction: column;
       width: 100%;
+      flex-direction: column;
     }
 
     .cta-button {
       width: 100%;
+      justify-content: center;
     }
   }
 </style>
