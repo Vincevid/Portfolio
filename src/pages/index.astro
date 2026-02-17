@@ -7,95 +7,177 @@ import OrbitalHero from '../components/OrbitalHero.astro';
   title="Home"
   description="Vincent Vidaurri - Product Manager & Designer specializing in aerospace, XR, and immersive technologies"
 >
-  <!-- Orbital Hero Section -->
-  <OrbitalHero />
+  <!-- Scroll snap root: fixed container alongside the sidebar on desktop -->
+  <div class="snap-root">
 
-  <!-- Mission Statement -->
-  <section class="mission">
-    <div class="mission-grid">
-      <div class="mission-label">
-        <span class="label-text">Mission Profile</span>
+  <!-- Hero snap section -->
+  <div class="snap-section">
+    <OrbitalHero />
+  </div>
+
+  <!-- Below-fold snap section: mission, capabilities, CTA -->
+  <div class="below-fold snap-section">
+    <!-- Mission Statement -->
+    <section class="mission">
+      <div class="mission-grid">
+        <div class="mission-label">
+          <span class="label-text">Hey, I'm Vincent</span>
+          <div class="label-line"></div>
+        </div>
+        <div class="mission-content">
+          <p class="mission-primary">
+            I build things that help people do their jobs better—from <span class="highlight">tools that guide technicians building rockets</span>
+    to <span class="highlight">everyday software</span> that just works.
+          </p>
+          <p class="mission-secondary">
+            I spent 18 years at NASA and Blue Origin figuring out how to make new technology actually
+            useful. At NASA, I got to watch hardware mockups evolve from foam core cutouts to 3D
+            prints to fully virtual—building touchscreen interfaces and XR experiences so teams could
+            get familiar with hardware that was in space. At Blue Origin, I used XR to change how
+            engineers reviewed designs and walked through facilities, and built digital tools that
+            helped technicians assemble rockets faster.</p>
+            <p class="mission-secondary">I'm a maker outside of work too, always picking up new skills, always tinkering with
+            something. Lately I've been using AI to build tools for my hobbies, and hopefully tools
+            other people can use too. Turns out the best part of making anything isn't the technology
+            itself—it's watching someone's work get easier because of something you built.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities Grid -->
+    <section class="capabilities">
+      <div class="capabilities-header">
+        <span class="label-text">Core Capabilities</span>
         <div class="label-line"></div>
       </div>
-      <div class="mission-content">
-        <p class="mission-primary">
-          Building the future at the intersection of <span class="highlight">aerospace</span>,
-          <span class="highlight">extended reality</span>, and <span class="highlight">human-centered design</span>.
-        </p>
-        <p class="mission-secondary">
-          From NASA's research labs to Blue Origin's commercial spaceflight programs,
-          I translate complex technical systems into intuitive experiences. Specializing
-          in AR/VR/XR, IoT sensor networks, and AI-powered tools that push the boundaries
-          of what's possible.
-        </p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <div class="capability-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3>Product Strategy</h3>
+          <p>Defining product vision and roadmaps for cutting-edge technologies</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+          </div>
+          <h3>XR/Immersive Tech</h3>
+          <p>AR/VR applications bridging digital and physical worlds</p>
+        </div>
+        <div class="capability-card">
+          <div class="capability-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13"/>
+              <path d="m8 6 2-2"/>
+              <path d="m18 16 2-2"/>
+              <path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17"/>
+              <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/>
+            </svg>
+          </div>
+          <h3>User-Centered Prototyping</h3>
+          <p>Fast iteration on real solutions, testing what works for users, not what looks good in theory</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Capabilities Grid -->
-  <section class="capabilities">
-    <div class="capabilities-header">
-      <span class="label-text">Core Capabilities</span>
-      <div class="label-line"></div>
-    </div>
-    <div class="capabilities-grid">
-      <div class="capability-card">
-        <div class="capability-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="cta-container">
+        <div class="cta-content">
+          <h2>Ready to collaborate?</h2>
+          <p>Let's build something extraordinary together.</p>
         </div>
-        <h3>Product Strategy</h3>
-        <p>Defining product vision and roadmaps for cutting-edge technologies</p>
-      </div>
-      <div class="capability-card">
-        <div class="capability-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-          </svg>
+        <div class="cta-buttons">
+          <a href="/projects" class="cta-button primary">
+            <span>Explore Projects</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/contact" class="cta-button secondary">
+            <span>Contact</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </a>
         </div>
-        <h3>XR/Immersive Tech</h3>
-        <p>AR/VR applications bridging digital and physical worlds</p>
       </div>
-      <div class="capability-card">
-        <div class="capability-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-        </div>
-        <h3>Systems Design</h3>
-        <p>IoT networks and hardware-software integration at scale</p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <!-- CTA Section -->
-  <section class="cta">
-    <div class="cta-container">
-      <div class="cta-content">
-        <h2>Ready to collaborate?</h2>
-        <p>Let's build something extraordinary together.</p>
-      </div>
-      <div class="cta-buttons">
-        <a href="/projects" class="cta-button primary">
-          <span>Explore Projects</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
-        <a href="/contact" class="cta-button secondary">
-          <span>Contact</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
+  </div><!-- end snap-root -->
 </PortfolioLayout>
 
 <style>
+  /* ========================================
+     Scroll Snap — Desktop only
+     ======================================== */
+
+  @media (min-width: 769px) {
+    /* Fixed scroll container that fills the area to the right of the sidebar */
+    .snap-root {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-width);
+      right: 0;
+      bottom: 0;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+
+    /* Each snap screen is exactly one viewport height — no padding here
+       so OrbitalHero (which sets its own height: 100vh) doesn't overflow */
+    .snap-section {
+      height: 100vh;
+      scroll-snap-align: start;
+    }
+
+    /* Below-fold gets its own padding and vertical centering */
+    .below-fold {
+      padding: 3rem 4rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Compact spacing so all three sections fit within one viewport height */
+    .below-fold .mission,
+    .below-fold .capabilities,
+    .below-fold .cta {
+      margin: var(--spacing-lg) 0;
+      padding: var(--spacing-lg) 0;
+    }
+
+    .below-fold .mission-primary {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .below-fold .mission-secondary {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  /* Mobile: snap-root reverts to normal flow inside .content */
+  @media (max-width: 768px) {
+    .snap-root {
+      position: static;
+    }
+
+    .snap-section {
+      height: auto;
+    }
+  }
+
   /* ========================================
      Mission Statement Section
      ======================================== */
