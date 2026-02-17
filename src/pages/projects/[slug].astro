@@ -29,6 +29,10 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
 
       <!-- Project Header -->
       <header class="project-header">
+        <div class="case-study-label">
+          <span class="label-text">Case Study</span>
+          <div class="label-line"></div>
+        </div>
         <h1 class="project-title">{title}</h1>
         <p class="project-description">{description}</p>
 
@@ -80,12 +84,12 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
         <!-- Links -->
         <div class="project-links">
           {liveUrl && (
-            <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="project-link">
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="project-link project-link--primary">
               View Live Site →
             </a>
           )}
           {githubUrl && (
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="project-link">
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer" class:list={['project-link', liveUrl ? 'project-link--secondary' : 'project-link--primary']}>
               View on GitHub →
             </a>
           )}
@@ -138,6 +142,21 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     margin-bottom: var(--spacing-2xl);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    position: relative;
+    animation: fadeUp 0.8s ease-out 0.1s both;
+  }
+
+  .project-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(34, 34, 34, 0.7), transparent);
+    pointer-events: none;
   }
 
   .hero-image-wrapper {
@@ -154,9 +173,34 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     object-fit: cover;
   }
 
+  /* Case Study Label */
+  .case-study-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
+  }
+
   /* Project Header */
   .project-header {
     margin-bottom: var(--spacing-3xl);
+    animation: fadeUp 0.8s ease-out 0.25s both;
   }
 
   .project-title {
@@ -179,22 +223,56 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--spacing-lg);
     padding: var(--spacing-lg);
-    background-color: var(--color-bg-card);
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.4), rgba(35, 35, 35, 0.6));
+    border: 1px solid rgba(65, 196, 66, 0.15);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .project-meta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .project-meta:hover {
+    border-color: rgba(65, 196, 66, 0.4);
+    box-shadow: 0 8px 24px rgba(65, 196, 66, 0.15);
+  }
+
+  .project-meta:hover::before {
+    opacity: 1;
   }
 
   .meta-item {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
+    padding-right: var(--spacing-lg);
+    border-right: 1px solid rgba(65, 196, 66, 0.1);
+  }
+
+  .meta-item:last-child {
+    border-right: none;
+    padding-right: 0;
   }
 
   .meta-label {
+    font-family: 'Courier New', monospace;
     font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+    color: rgba(65, 196, 66, 0.7);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
   }
 
   .meta-value {
@@ -212,12 +290,19 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
   }
 
   .tag {
-    background-color: var(--color-bg-card);
+    background-color: rgba(45, 45, 45, 0.8);
+    backdrop-filter: blur(10px);
     color: var(--color-text-secondary);
     padding: var(--spacing-xs) var(--spacing-md);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(65, 196, 66, 0.2);
+    transition: all var(--transition-fast);
+  }
+
+  .tag:hover {
+    border-color: rgba(65, 196, 66, 0.5);
+    color: var(--color-brand);
   }
 
   /* Technologies */
@@ -259,33 +344,79 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     align-items: center;
     gap: var(--spacing-xs);
     padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--color-bg-card);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
     font-size: var(--font-size-base);
     font-weight: 500;
     transition: all var(--transition-base);
+    text-decoration: none;
   }
 
-  .project-link:hover {
-    background-color: var(--color-border);
+  .project-link--primary {
+    background-color: var(--color-brand);
+    color: var(--color-bg);
+    border: 1px solid var(--color-brand);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .project-link--primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-slow);
+  }
+
+  .project-link--primary:hover {
+    box-shadow: 0 0 30px rgba(65, 196, 66, 0.5);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+  }
+
+  .project-link--primary:hover::before {
+    left: 100%;
+  }
+
+  .project-link--secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+  }
+
+  .project-link--secondary:hover {
+    background-color: rgba(65, 196, 66, 0.1);
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+    transform: translateY(-2px);
   }
 
   /* Project Content (MDX) */
   .project-content {
     line-height: 1.8;
+    animation: fadeUp 0.8s ease-out 0.4s both;
   }
 
   .project-content :global(h2) {
     font-size: var(--font-size-2xl);
     margin-top: var(--spacing-3xl);
     margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-md);
+    border-bottom: none;
+    position: relative;
     scroll-margin-top: 1.5rem;
+  }
+
+  .project-content :global(h2)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.4) 0%, rgba(65, 196, 66, 0.15) 60%, transparent 100%);
   }
 
   .project-content :global(h3) {
@@ -330,6 +461,26 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     overflow-x: auto;
     margin-bottom: var(--spacing-xl);
     border: 1px solid var(--color-border);
+  }
+
+  /* Entrance animations */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-hero,
+    .project-header,
+    .project-content {
+      animation: none;
+    }
   }
 
   /* Responsive Design */
