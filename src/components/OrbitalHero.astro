@@ -91,11 +91,13 @@ function calculatePosition(angleDeg: number) {
 
     hero.addEventListener('mousemove', (e) => {
       const heroRect = hero.getBoundingClientRect();
-      const mouseX = e.clientX - heroRect.left;
-      const mouseY = e.clientY - heroRect.top;
+      const { clientX, clientY } = e as MouseEvent;
+      const mouseX = clientX - heroRect.left;
+      const mouseY = clientY - heroRect.top;
 
       keywords.forEach((keyword) => {
-        const rect = keyword.getBoundingClientRect();
+        const el = keyword as HTMLElement;
+        const rect = el.getBoundingClientRect();
         const keywordX = rect.left + rect.width / 2 - heroRect.left;
         const keywordY = rect.top + rect.height / 2 - heroRect.top;
 
@@ -111,20 +113,21 @@ function calculatePosition(angleDeg: number) {
           const brightness = 0.5 + (proximity * 0.5); // 0.5 to 1
           const glowIntensity = proximity * 0.8;
 
-          keyword.style.filter = `brightness(${brightness + 1})`;
-          keyword.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(65, 196, 66, ${glowIntensity}),
+          el.style.filter = `brightness(${brightness + 1})`;
+          el.style.boxShadow = `0 0 ${20 * glowIntensity}px rgba(65, 196, 66, ${glowIntensity}),
                                      0 4px 8px rgba(0, 0, 0, 0.3)`;
         } else {
-          keyword.style.filter = 'brightness(1)';
-          keyword.style.boxShadow = '';
+          el.style.filter = 'brightness(1)';
+          el.style.boxShadow = '';
         }
       });
     });
 
     hero.addEventListener('mouseleave', () => {
       keywords.forEach((keyword) => {
-        keyword.style.filter = 'brightness(1)';
-        keyword.style.boxShadow = '';
+        const el = keyword as HTMLElement;
+        el.style.filter = 'brightness(1)';
+        el.style.boxShadow = '';
       });
     });
   }
@@ -157,6 +160,7 @@ function calculatePosition(angleDeg: number) {
 
     // Animation loop for particles
     function animateParticles() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -186,8 +190,7 @@ function calculatePosition(angleDeg: number) {
     keywords.forEach((keyword) => {
       keyword.addEventListener('click', (e) => {
         // Use viewport coordinates directly since canvas is fixed full-screen
-        const centerX = e.clientX;
-        const centerY = e.clientY;
+        const { clientX: centerX, clientY: centerY } = e as MouseEvent;
 
         // Shake effect
         keyword.classList.add('shake');
