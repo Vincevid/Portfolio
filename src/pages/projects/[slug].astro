@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -11,93 +12,124 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await project.render();
+const { Content, headings } = await project.render();
 const { title, description, role, company, duration, tags, technologies, liveUrl, githubUrl, heroImage, date } = project.data;
+const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
 ---
 
 <PortfolioLayout title={title} description={description}>
-  <article class="project-detail">
-    <!-- Hero Section -->
-    <div class="project-hero">
-      <div class="hero-image-wrapper">
-        <img src={heroImage} alt={title} class="hero-image" />
-      </div>
-    </div>
-
-    <!-- Project Header -->
-    <header class="project-header">
-      <h1 class="project-title">{title}</h1>
-      <p class="project-description">{description}</p>
-
-      <!-- Meta Information -->
-      <div class="project-meta">
-        <div class="meta-item">
-          <span class="meta-label">Role</span>
-          <span class="meta-value">{role}</span>
-        </div>
-        {company && (
-          <div class="meta-item">
-            <span class="meta-label">Company</span>
-            <span class="meta-value">{company}</span>
-          </div>
-        )}
-        {duration && (
-          <div class="meta-item">
-            <span class="meta-label">Duration</span>
-            <span class="meta-value">{duration}</span>
-          </div>
-        )}
-        <div class="meta-item">
-          <span class="meta-label">Date</span>
-          <span class="meta-value">{date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
+  <div class:list={['project-layout', { 'project-layout--with-toc': hasToc }]}>
+    <article class="project-detail">
+      <!-- Hero Section -->
+      <div class="project-hero">
+        <div class="hero-image-wrapper">
+          <img src={heroImage} alt={title} class="hero-image" />
         </div>
       </div>
 
-      <!-- Tags -->
-      {tags && tags.length > 0 && (
-        <div class="project-tags">
-          {tags.map((tag) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )}
+      <!-- Project Header -->
+      <header class="project-header">
+        <h1 class="project-title">{title}</h1>
+        <p class="project-description">{description}</p>
 
-      <!-- Technologies -->
-      {technologies && technologies.length > 0 && (
-        <div class="project-technologies">
-          <h4>Technologies Used</h4>
-          <div class="tech-list">
-            {technologies.map((tech) => (
-              <span class="tech-badge">{tech}</span>
+        <!-- Meta Information -->
+        <div class="project-meta">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">{role}</span>
+          </div>
+          {company && (
+            <div class="meta-item">
+              <span class="meta-label">Company</span>
+              <span class="meta-value">{company}</span>
+            </div>
+          )}
+          {duration && (
+            <div class="meta-item">
+              <span class="meta-label">Duration</span>
+              <span class="meta-value">{duration}</span>
+            </div>
+          )}
+          <div class="meta-item">
+            <span class="meta-label">Date</span>
+            <span class="meta-value">{date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        {tags && tags.length > 0 && (
+          <div class="project-tags">
+            {tags.map((tag) => (
+              <span class="tag">{tag}</span>
             ))}
           </div>
+        )}
+
+        <!-- Technologies -->
+        {technologies && technologies.length > 0 && (
+          <div class="project-technologies">
+            <h4>Technologies Used</h4>
+            <div class="tech-list">
+              {technologies.map((tech) => (
+                <span class="tech-badge">{tech}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Links -->
+        <div class="project-links">
+          {liveUrl && (
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="project-link">
+              View Live Site →
+            </a>
+          )}
+          {githubUrl && (
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="project-link">
+              View on GitHub →
+            </a>
+          )}
         </div>
-      )}
+      </header>
 
-      <!-- Links -->
-      <div class="project-links">
-        {liveUrl && (
-          <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="project-link">
-            View Live Site →
-          </a>
-        )}
-        {githubUrl && (
-          <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="project-link">
-            View on GitHub →
-          </a>
-        )}
+      <!-- Project Content (MDX) -->
+      <div class="project-content">
+        <Content />
       </div>
-    </header>
+    </article>
 
-    <!-- Project Content (MDX) -->
-    <div class="project-content">
-      <Content />
-    </div>
-  </article>
+    {hasToc && (
+      <aside class="toc-column">
+        <TableOfContents headings={headings} />
+      </aside>
+    )}
+  </div>
 </PortfolioLayout>
 
 <style>
+  /* Layout */
+  .project-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .toc-column {
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .project-layout--with-toc {
+      grid-template-columns: 1fr 220px;
+      gap: var(--spacing-2xl);
+    }
+
+    .toc-column {
+      display: block;
+    }
+  }
+
   .project-detail {
+    min-width: 0;
     max-width: 800px;
   }
 
@@ -253,12 +285,14 @@ const { title, description, role, company, duration, tags, technologies, liveUrl
     margin-bottom: var(--spacing-lg);
     padding-bottom: var(--spacing-sm);
     border-bottom: 1px solid var(--color-border);
+    scroll-margin-top: 1.5rem;
   }
 
   .project-content :global(h3) {
     font-size: var(--font-size-xl);
     margin-top: var(--spacing-2xl);
     margin-bottom: var(--spacing-md);
+    scroll-margin-top: 1.5rem;
   }
 
   .project-content :global(p) {

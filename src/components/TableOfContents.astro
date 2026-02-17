@@ -1,0 +1,183 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+<nav class="toc" aria-label="Table of contents">
+  <div class="toc-label">
+    <span class="toc-label-text">On This Page</span>
+    <div class="toc-label-line"></div>
+  </div>
+  <ol class="toc-list">
+    {tocHeadings.map((h) => (
+      <li class:list={['toc-item', { 'toc-item--h3': h.depth === 3 }]}>
+        <a href={`#${h.slug}`} class="toc-link" data-heading-id={h.slug}>
+          {h.text}
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script>
+  function initToc() {
+    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-link[data-heading-id]');
+    if (tocLinks.length === 0) return;
+
+    // Build map: slug → anchor element
+    const linkMap = new Map<string, HTMLAnchorElement>();
+    tocLinks.forEach((a) => {
+      const id = a.dataset.headingId!;
+      linkMap.set(id, a);
+    });
+
+    // Collect heading elements in document order
+    const headingEls: HTMLElement[] = [];
+    linkMap.forEach((_, id) => {
+      const el = document.getElementById(id);
+      if (el) headingEls.push(el);
+    });
+
+    // Sort by document order
+    headingEls.sort((a, b) => {
+      const pos = a.compareDocumentPosition(b);
+      return pos & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+    });
+
+    const visibleSet = new Set<string>();
+
+    function setActive(id: string | null) {
+      linkMap.forEach((a) => a.classList.remove('toc-link--active'));
+      if (id && linkMap.has(id)) {
+        linkMap.get(id)!.classList.add('toc-link--active');
+      }
+    }
+
+    function pickActive() {
+      // Find the topmost visible heading in document order
+      for (const el of headingEls) {
+        if (visibleSet.has(el.id)) {
+          setActive(el.id);
+          return;
+        }
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visibleSet.add(entry.target.id);
+          } else {
+            visibleSet.delete(entry.target.id);
+          }
+        });
+        pickActive();
+      },
+      { rootMargin: '-10% 0px -80% 0px' }
+    );
+
+    headingEls.forEach((el) => observer.observe(el));
+
+    // Set initial active from hash or first heading
+    const hash = window.location.hash.slice(1);
+    if (hash && linkMap.has(hash)) {
+      setActive(hash);
+    } else if (headingEls.length > 0) {
+      setActive(headingEls[0].id);
+    }
+  }
+
+  // Run on initial load and after view transitions
+  initToc();
+  document.addEventListener('astro:after-swap', initToc);
+</script>
+
+<style>
+  .toc {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    /* Hide scrollbar but keep scroll functionality */
+    scrollbar-width: none;
+  }
+
+  .toc::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Label — matches index.astro .label-text / .label-line */
+  .toc-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .toc-label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .toc-label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
+  }
+
+  /* List */
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .toc-item {
+    margin: 0;
+  }
+
+  .toc-item--h3 {
+    padding-left: var(--spacing-md);
+  }
+
+  /* Links */
+  .toc-link {
+    display: block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    border-left: 2px solid transparent;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .toc-link:hover {
+    color: var(--color-brand);
+    border-left-color: rgba(65, 196, 66, 0.4);
+    background-color: rgba(65, 196, 66, 0.05);
+  }
+
+  .toc-link--active {
+    color: var(--color-text);
+    border-left-color: var(--color-brand);
+    background-color: rgba(65, 196, 66, 0.08);
+  }
+</style>
