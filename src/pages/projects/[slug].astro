@@ -23,7 +23,18 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
       <!-- Hero Section -->
       <div class="project-hero">
         <div class="hero-image-wrapper">
-          <img src={heroImage} alt={title} class="hero-image" />
+          {/\.(webm|mp4|ogg)$/i.test(heroImage) ? (
+            <video
+              src={heroImage}
+              class="hero-image"
+              autoplay
+              muted
+              loop
+              playsinline
+            />
+          ) : (
+            <img src={heroImage} alt={title} class="hero-image" />
+          )}
         </div>
       </div>
 
@@ -134,7 +145,6 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
 
   .project-detail {
     min-width: 0;
-    max-width: 800px;
   }
 
   /* Hero Section */
@@ -461,6 +471,34 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     overflow-x: auto;
     margin-bottom: var(--spacing-xl);
     border: 1px solid var(--color-border);
+  }
+
+  /* In-content images */
+  .project-content :global(img) {
+    display: block;
+    width: auto;
+    max-width: 50%;
+    max-height: 50vh;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    margin: var(--spacing-xl) auto;
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .project-content :global(img):hover {
+    box-shadow: 0 8px 32px rgba(65, 196, 66, 0.12), 0 4px 24px rgba(0, 0, 0, 0.5);
+    border-color: rgba(65, 196, 66, 0.3);
+  }
+
+  /* In-content videos */
+  .project-content :global(video) {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    margin: var(--spacing-xl) 0;
   }
 
   /* Entrance animations */

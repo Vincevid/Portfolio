@@ -3,12 +3,12 @@ title: "Stitch Out"
 description: "A browser-native embroidery file analysis and visualization tool supporting five major formats, built to bridge the gap between embroidery software and machine-ready quality control"
 date: 2026-02-01
 tags: ["Tool Development", "Binary Parsing", "Canvas Rendering", "Embroidery"]
-heroImage: "/images/projects/stitch-out-analyzer-hero.png"
+heroImage: "/images/projects/Parser-Hero.webm"
 role: "Product Manager/Designer"
 company: "Independent Project"
 featured: true
 duration: "Ongoing"
-technologies: ["Vanilla JS", "HTML5 Canvas", "FileReader API", "ArrayBuffer", "MediaRecorder API", "Claude Code"]
+technologies: ["Vanilla JS", "HTML5 Canvas", "MediaRecorder API", "Claude Code"]
 githubUrl: "https://github.com"
 ---
 
@@ -61,8 +61,9 @@ and I would help guide the vision of the project leaning on my technical and des
 For the initial EXP parsing I leaned heavily on Claude. Claude did the reesearch on the format, provided me with the information and then built the parser with no input. It worked but in the future I found some errors once I expanded the capabilites. 
 
 The initial parser would just provide me back with details about the design I had uploaded. I knew details like stitches, colors, and trims since I had digitizing software. This allowed me to verify that the information that the parser was providing was correct.
+![Initial parser feedback](/images/projects/Parser-1.webp)
 
-Jumping to the future for a second I eventually found "https://edutechwiki.unige.ch/en/Embroidery_format" which had technical breakdowns of the formats of a few common embroidery file formats. I used this website extensively to help guide Claude to build the parsers the right way rather than it's way.
+Jumping to the future for a second I eventually found the [EduTech Wiki](https://edutechwiki.unige.ch/en/Embroidery_format) which had technical breakdowns of the formats of a few common embroidery file formats. I used this website extensively to help guide Claude to build the parsers the right way rather than it's way.
 
 ### Initial Visualization
 
@@ -74,6 +75,8 @@ Claude took the visualizer prompt built the following, a canvas renderer that su
 - **Normal** — thread colors per color block
 - **Density** — 10×10 grid heatmap (red = high density)
 - **Sequence** — rainbow gradient mapped to stitch order
+
+![First test at visualizing an embroidery file](/images/projects/Parser-2.webp)
 
 ### Quality Analysis Engine
 
@@ -88,12 +91,18 @@ The analyzer runs after parsing and produces a composite 0–100 score weighted 
 - **Jump and trim ratios** — consecutive jump detection, trim ratio thresholds at 1% (warning) and 2% (high)
 - **Color sequencing** — detects unnecessary color changes and flags re-color opportunities
 
+![Parser scoring](/images/projects/Parser-3.webp)
+
 Each issue is paired with a specific, actionable recommendation rather than a generic warning.
+
+![Issues and possible solutions](/images/projects/Parser-9.webp)
 
 The visualizer was updated to support:
 
 - **Issues** — highlights long stitches and problem zones in red
 - **Stacking** — alpha-blended overlap detection
+
+![Issues visualization](/images/projects/Parser-4.webp)
 
 The analyzer is really generic and I know that, I told Claude to search the internet and determine best practices. Ideally there are best practices for different types of fabric, but that's a task for future me if the need arrises that I build that feature out more. I didn't want to 
 add scope creep and keep adding features just because I could. 
@@ -123,11 +132,13 @@ Initial playback was simple, play/pause of the uploaded design but it later evol
 - **Social media size presets** — 1080×1080, 1080×1920, 1280×720. Ideal for Instagram, TikTok, or Etsy
 - **Export support** — Export a gif, webM, or mp4
 
+![Visualization playback](/images/projects/Parser-6.webp)
+
 ## Extending Parsing Capabilities
 
 I initially built my analyzer to utilize EXP files because that was what my digitizer defaulted to and what my machine read. I knew that not everyone had the same machine and also didn't use the same file formats for their machines so I decided to take on the task of building more parsers for the formats that 
 My next goal was a PES parser and I couldn't get it to work by just prompting Claude to use the EXP parser as a roadmap and build a PES parser. I kept getting the wrong results and Claude kept going in circles. This got me to slow down, look at the problem and rely on my experience to go looking for technical documentation on how the 
-file is structured. I found this website "https://edutechwiki.unige.ch/en/Embroidery_format" and that really helped me guide Claude feeding it exactly what I wanted while providing it with all the technical specifications that it needed. PES parsing started working properly and I decided why not implement the other formats that were on this site
+file is structured. I found this website [EduTech Wiki](https://edutechwiki.unige.ch/en/Embroidery_format) and that really helped me guide Claude feeding it exactly what I wanted while providing it with all the technical specifications that it needed. PES parsing started working properly and I decided why not implement the other formats that were on this site
 for all the other people that had different machines and used other formats. I had professionally created files files for each of those formats from a previous project so I went down the list one by one until I had a parser that could successfully parse the files with minimal errors.
 In the end I had individual parsers for the following formats:
 
@@ -179,6 +190,7 @@ decided needed to be split out once the project grew in size. I had Claude analy
 
 **Real thread colors** — Embroidery thread comes in lots of colors and from lots of brands. I knew I wanted the colors in my visualizer to match closely to the real thread. I found a website that converted major brands to hex values so that allowed me to have a color picker 
 that sorted based on brand as well as color family while still providing the brand specific color name and number identifier for easy color matching.
+![Thread choices](/images/projects/Parser-7.webp)
 
 ## Results
 
