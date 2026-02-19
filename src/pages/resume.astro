@@ -1,5 +1,11 @@
 ---
+import { getEntry, render } from 'astro:content';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import ExperienceEntry from '../components/ExperienceEntry.astro';
+
+const entry = await getEntry('experience', 'experience');
+if (!entry) throw new Error('experience/experience.mdx not found');
+const { Content } = await render(entry);
 ---
 
 <PortfolioLayout
@@ -14,80 +20,40 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 
     <!-- Work Experience -->
     <section class="resume-section">
-      <h2 class="section-title">Work Experience</h2>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>Product Designer</h3>
-            <p class="company">Blue Origin</p>
-            <p class="duration">2022 - 2024</p>
-            <ul class="responsibilities">
-              <li>Led design of internal fleet management tools, resulting in 20% operational efficiency improvement</li>
-              <li>Developed design systems for spacecraft interface controls</li>
-              <li>Collaborated with engineering teams on AR visualization tools for spacecraft assembly</li>
-              <li>Conducted user research with astronauts and mission control personnel</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>Systems Engineer</h3>
-            <p class="company">NASA</p>
-            <p class="duration">2019 - 2022</p>
-            <ul class="responsibilities">
-              <li>Designed and deployed IoT sensor networks across research facilities</li>
-              <li>Built real-time monitoring dashboards for environmental data analysis</li>
-              <li>Developed predictive maintenance algorithms, preventing $50K+ in equipment failures</li>
-              <li>Collaborated on XR training simulations for astronaut preparation</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>Product Manager</h3>
-            <p class="company">Tech Startup</p>
-            <p class="duration">2017 - 2019</p>
-            <ul class="responsibilities">
-              <li>Managed product roadmap for B2B SaaS platform</li>
-              <li>Led cross-functional teams of designers and engineers</li>
-              <li>Launched 3 major features resulting in 40% user growth</li>
-              <li>Implemented data-driven decision making processes</li>
-            </ul>
-          </div>
-        </div>
+      <div class="section-label">
+        <span class="label-text">Work Experience</span>
+        <div class="label-line"></div>
+      </div>
+      <div class="experience-content">
+        <Content components={{ ExperienceEntry }} />
       </div>
     </section>
 
     <!-- Skills -->
     <section class="resume-section">
-      <h2 class="section-title">Skills & Expertise</h2>
+      <div class="section-label">
+        <span class="label-text">Skills & Expertise</span>
+        <div class="label-line"></div>
+      </div>
 
       <div class="skills-grid">
         <div class="skill-category">
-          <h3>AR/VR/XR Development</h3>
+          <h3>XR & Immersive Tech</h3>
           <div class="skill-tags">
+            <span class="skill-tag">AR/VR</span>
+            <span class="skill-tag">XR</span>
             <span class="skill-tag">Unity</span>
-            <span class="skill-tag">Unreal Engine</span>
-            <span class="skill-tag">ARKit</span>
-            <span class="skill-tag">WebXR</span>
-            <span class="skill-tag">Spatial Computing</span>
+            <span class="skill-tag">Simulation</span>
+            <span class="skill-tag">Training Systems</span>
           </div>
         </div>
 
         <div class="skill-category">
           <h3>Product Management</h3>
           <div class="skill-tags">
-            <span class="skill-tag">Agile/Scrum</span>
-            <span class="skill-tag">User Research</span>
             <span class="skill-tag">Roadmap Planning</span>
-            <span class="skill-tag">Data Analytics</span>
             <span class="skill-tag">Stakeholder Management</span>
+            <span class="skill-tag">Agile / Jira</span>
           </div>
         </div>
 
@@ -95,9 +61,8 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
           <h3>Design Systems</h3>
           <div class="skill-tags">
             <span class="skill-tag">Figma</span>
-            <span class="skill-tag">Design Tokens</span>
-            <span class="skill-tag">Component Libraries</span>
-            <span class="skill-tag">Accessibility (WCAG)</span>
+            <span class="skill-tag">Design Systems</span>
+            <span class="skill-tag">UX</span>
             <span class="skill-tag">Prototyping</span>
           </div>
         </div>
@@ -105,11 +70,10 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
         <div class="skill-category">
           <h3>Technical</h3>
           <div class="skill-tags">
-            <span class="skill-tag">JavaScript/TypeScript</span>
-            <span class="skill-tag">React</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">IoT Systems</span>
-            <span class="skill-tag">API Design</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">Cesium.js</span>
+            <span class="skill-tag">Supabase</span>
+            <span class="skill-tag">Power BI</span>
           </div>
         </div>
       </div>
@@ -117,7 +81,10 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 
     <!-- Education -->
     <section class="resume-section">
-      <h2 class="section-title">Education</h2>
+      <div class="section-label">
+        <span class="label-text">Education</span>
+        <div class="label-line"></div>
+      </div>
       <div class="education-item">
         <h3>Bachelor of Science in Computer Science</h3>
         <p class="institution">University Name</p>
@@ -159,87 +126,62 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     margin-bottom: var(--spacing-3xl);
   }
 
-  .section-title {
+  /* Section label — matches [slug].astro + TableOfContents pattern */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
+  }
+
+  /* MDX content global styles */
+  .experience-content :global(h2) {
     font-size: var(--font-size-2xl);
     font-weight: 600;
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 2px solid var(--color-border);
+    font-family: var(--font-family-display);
+    margin-bottom: var(--spacing-lg);
   }
 
-  /* Timeline */
-  .timeline {
-    position: relative;
-    padding-left: var(--spacing-2xl);
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--color-border);
-  }
-
-  .timeline-item {
-    position: relative;
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .timeline-marker {
-    position: absolute;
-    left: calc(-1 * var(--spacing-2xl) - 6px);
-    top: 6px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--color-text);
-    border: 3px solid var(--color-bg);
-  }
-
-  .timeline-content h3 {
-    font-size: var(--font-size-xl);
-    font-weight: 600;
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .company {
-    font-size: var(--font-size-base);
-    color: var(--color-accent);
-    font-weight: 500;
-    margin-bottom: var(--spacing-xs);
-  }
-
-  .duration {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin-bottom: var(--spacing-md);
-  }
-
-  .responsibilities {
-    list-style: disc;
-    padding-left: var(--spacing-lg);
-  }
-
-  .responsibilities li {
+  .experience-content :global(p) {
     color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-sm);
-    line-height: 1.6;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .experience-content :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(65, 196, 66, 0.1);
+    margin: var(--spacing-md) 0;
   }
 
   /* Skills Grid */
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: var(--spacing-xl);
   }
 
   .skill-category h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: 600;
     margin-bottom: var(--spacing-md);
+    color: var(--color-text);
   }
 
   .skill-tags {
@@ -249,12 +191,19 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   }
 
   .skill-tag {
-    background-color: var(--color-bg-card);
+    background-color: rgba(45, 45, 45, 0.8);
+    backdrop-filter: blur(10px);
     color: var(--color-text-secondary);
     padding: var(--spacing-xs) var(--spacing-md);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(65, 196, 66, 0.2);
+    transition: all var(--transition-fast);
+  }
+
+  .skill-tag:hover {
+    border-color: rgba(65, 196, 66, 0.5);
+    color: var(--color-brand);
   }
 
   /* Education */
@@ -266,43 +215,65 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 
   .institution {
     font-size: var(--font-size-base);
-    color: var(--color-accent);
+    color: var(--color-brand);
     font-weight: 500;
     margin-bottom: var(--spacing-xs);
   }
 
+  .duration {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-sm);
+  }
+
   .details {
     color: var(--color-text-secondary);
-    margin-top: var(--spacing-sm);
   }
 
   /* Actions */
   .resume-actions {
     margin-top: var(--spacing-3xl);
     padding-top: var(--spacing-2xl);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid rgba(65, 196, 66, 0.1);
   }
 
+  /* Download button — brand-green fill with clipped top-right corner + shimmer */
   .download-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: var(--spacing-md) var(--spacing-2xl);
-    background-color: var(--color-text);
+    background-color: var(--color-brand);
     color: var(--color-bg);
-    border: 2px solid var(--color-text);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--color-brand);
+    font-family: var(--font-family-display);
     font-size: var(--font-size-base);
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    transition: all var(--transition-base);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+
+  .download-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-slow);
   }
 
   .download-button:hover {
-    background-color: transparent;
-    color: var(--color-text);
+    box-shadow: 0 0 30px rgba(65, 196, 66, 0.5);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+  }
+
+  .download-button:hover::before {
+    left: 100%;
   }
 
   /* Responsive */
@@ -310,28 +281,12 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     .skills-grid {
       grid-template-columns: 1fr;
     }
-
-    .timeline {
-      padding-left: var(--spacing-lg);
-    }
-
-    .timeline-marker {
-      left: calc(-1 * var(--spacing-lg) - 6px);
-    }
   }
 
-  /* Print Styles */
+  /* Print */
   @media print {
     .resume-actions {
       display: none;
-    }
-
-    .timeline::before {
-      background: #000;
-    }
-
-    .section-title {
-      border-bottom-color: #000;
     }
   }
 </style>
