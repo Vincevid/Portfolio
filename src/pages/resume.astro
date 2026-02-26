@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import ExperienceEntry from '../components/ExperienceEntry.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 
 const entry = await getEntry('experience', 'experience');
 if (!entry) throw new Error('experience/experience.mdx not found');
@@ -12,99 +13,129 @@ const { Content } = await render(entry);
   title="Resume"
   description="Vincent Vidaurri's professional experience in aerospace, XR, and product management"
 >
-  <div class="resume">
-    <header class="resume-header">
-      <h1>Resume</h1>
-      <p class="subtitle">Product Manager & Designer specializing in aerospace and XR technologies</p>
-    </header>
+  <div class="resume-layout">
+    <div class="resume">
+      <header class="resume-header">
+        <h1>Work History</h1>
+        <p class="subtitle">Product Manager & Designer specializing in aerospace and XR technologies</p>
+      </header>
 
-    <!-- Work Experience -->
-    <section class="resume-section">
-      <div class="section-label">
-        <span class="label-text">Work Experience</span>
-        <div class="label-line"></div>
-      </div>
-      <div class="experience-content">
-        <Content components={{ ExperienceEntry }} />
-      </div>
-    </section>
+      <!-- Work Experience -->
+      <section class="resume-section">
+        <div class="section-label">
+          <span class="label-text">Work Experience</span>
+          <div class="label-line"></div>
+        </div>
+        <div class="experience-content">
+          <Content components={{ ExperienceEntry }} />
+        </div>
+      </section>
 
-    <!-- Skills -->
-    <section class="resume-section">
-      <div class="section-label">
-        <span class="label-text">Skills & Expertise</span>
-        <div class="label-line"></div>
-      </div>
-
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3>XR & Immersive Tech</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">AR/VR</span>
-            <span class="skill-tag">XR</span>
-            <span class="skill-tag">Unity</span>
-            <span class="skill-tag">Simulation</span>
-            <span class="skill-tag">Training Systems</span>
-          </div>
+      <!-- Skills -->
+      <section class="resume-section">
+        <div class="section-label">
+          <span class="label-text">Skills & Expertise</span>
+          <div class="label-line"></div>
         </div>
 
-        <div class="skill-category">
-          <h3>Product Management</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Roadmap Planning</span>
-            <span class="skill-tag">Stakeholder Management</span>
-            <span class="skill-tag">Agile / Jira</span>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3>XR & Immersive Tech</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">AR/VR</span>
+              <span class="skill-tag">XR</span>
+              <span class="skill-tag">Unity</span>
+              <span class="skill-tag">Simulation</span>
+              <span class="skill-tag">Training Systems</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Product Management</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Roadmap Planning</span>
+              <span class="skill-tag">Stakeholder Management</span>
+              <span class="skill-tag">Agile / Jira</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Design Systems</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">Design Systems</span>
+              <span class="skill-tag">UX</span>
+              <span class="skill-tag">Prototyping</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Technical</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Cesium.js</span>
+              <span class="skill-tag">Supabase</span>
+              <span class="skill-tag">Power BI</span>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="skill-category">
-          <h3>Design Systems</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Figma</span>
-            <span class="skill-tag">Design Systems</span>
-            <span class="skill-tag">UX</span>
-            <span class="skill-tag">Prototyping</span>
-          </div>
+      <!-- Education -->
+      <section class="resume-section">
+        <div class="section-label">
+          <span class="label-text">Education</span>
+          <div class="label-line"></div>
         </div>
-
-        <div class="skill-category">
-          <h3>Technical</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Next.js</span>
-            <span class="skill-tag">Cesium.js</span>
-            <span class="skill-tag">Supabase</span>
-            <span class="skill-tag">Power BI</span>
-          </div>
+        <div class="education-item">
+          <h3>Bachelor of Science in Computer Science</h3>
+          <p class="institution">University Name</p>
+          <p class="duration">2013 - 2017</p>
+          <p class="details">Focus on Human-Computer Interaction and Software Engineering</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Education -->
-    <section class="resume-section">
-      <div class="section-label">
-        <span class="label-text">Education</span>
-        <div class="label-line"></div>
+      <!-- Download PDF -->
+      <div class="resume-actions">
+        <a href="/resume.pdf" download class="download-button">
+          Download PDF Resume
+        </a>
       </div>
-      <div class="education-item">
-        <h3>Bachelor of Science in Computer Science</h3>
-        <p class="institution">University Name</p>
-        <p class="duration">2013 - 2017</p>
-        <p class="details">Focus on Human-Computer Interaction and Software Engineering</p>
-      </div>
-    </section>
-
-    <!-- Download PDF -->
-    <div class="resume-actions">
-      <a href="/resume.pdf" download class="download-button">
-        Download PDF Resume
-      </a>
     </div>
+
+    <aside class="timeline-column">
+      <ExperienceTimeline />
+    </aside>
   </div>
 </PortfolioLayout>
 
+<style is:global>
+  /* Layout grid — global to guarantee the rules are not lost to Astro's
+     scoped-hash mechanism when the aside directly wraps a component */
+  .resume-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-column {
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .resume-layout {
+      grid-template-columns: 1fr 220px;
+      gap: var(--spacing-2xl);
+    }
+    .timeline-column {
+      display: block;
+    }
+  }
+</style>
+
 <style>
+  /* Main content column */
   .resume {
-    max-width: 900px;
+    min-width: 0;
   }
 
   .resume-header {

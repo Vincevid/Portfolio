@@ -5,9 +5,57 @@ description: "18 years building tools that help people do hard things — from a
 
 ## The Work
 
-I've spent the better part of two decades building products at the intersection of complex systems and the people who operate them. That's meant AR overlays on a rocket assembly floor, VR environments where engineers could walk through a vehicle before it existed in metal, and training simulators that put astronauts face-to-face with hardware they'd never physically touch until they were in orbit.
+I've spent the better part of two decades building products at the intersection of complex systems and the people who operate them. That's meant AR overlays on a rocket assembly floor, VR environments where engineers could walk through a vehicle before it existed physically, and training simulators that allowed flight controllers supporting the International Space Station to interact with hardware that was only in space.
 
-The throughline: I'm drawn to problems where the gap between what people *know* and what they need to *do* can be closed with the right tool.
+
+
+This is more a retelling of my history and less formal resume. If you'd prefer the traditional resume you can find it here: !Resume
+
+---
+
+<ExperienceEntry
+  role="Hardware Integration Project Lead"
+  company="Teledyne Brown Engineering / NASA"
+  period="2007 – 2022"
+  location="Marshall Space Flight Center Huntsville, AL"
+  tags={["XR", "Simulation", "Training Systems", "NASA", "3D Printing"]}
+>
+
+I was lucky enough to get my start right out of high school. My school had a program called HUNCH or **H**igh school students **U**nited with **N**ASA to **C**reate **H**ardware that allowed schools with technical programs to work with NASA to build projects. I worked with this program my junior and senior year and was lucky enough that when I graduated I was offered a job as long as I went to college. The job was for the lab that all the local HUNCH projects supported the Laboratory Training Complex or LTC a 1:1 mockup of the US lab on the ISS and a few consoles that allowed flight controllers to train using our simulators. 
+
+When I first started in the LTC it was a single mockup that utilized pictures glued to foam board to show what racks were where. There were 2 real racks for training that allowed hands on experience for the flight controllers and also were connected to the simulator. For the first few years I spent less of my time supporting the actual lab and more supporting HUNCH, I would go with my boss to different schools that worked with HUNCH and learn about the projects they were working on. I would take materials and supplies to them so that they could build projects and also pick up finished projects.
+
+Occasionally our lab would need a mockup of some payload that was going to station and I would build them. While some HUNCH schools at this time had 3D printers our lab didn't so I built the mockups out of foam board. In these years the payload developers wouldn't provide us with CAD files so I would normally be provied a photograph and then I would reverse engineer it based of my knowledge of how the payload would be installed on station. After a few hours of math and arts and crafts I'd have a physical mockup of something that would later be in space. Eventually we got a 3D printer and I would go to some of the HUNCH classes that taught CAD and learn the basics from some of the students there so that I could start building off of those skills and transitioned my mockups from foam to 3D prints. 
+
+This job was my entry point into becoming a generalist. The high school classes I took were focused on electronics and programming, I learned how to read schematics and build projects on bread boards and how to program in Visual Basic and Flash. Our LTC team was small about 3-5 people, with dedicated software developers which may dip into electronics and then my boss and myself focusing more on the physical side of the lab. 
+
+Eventually the lab changed, we were given a new larger space which meant more projects and HUNCH was split off to a different contract and the lab became NASA run. I stayed with the LTC becoming a customer of HUNCH and not a part of it. 
+
+A new project that came up was called a Glass Rack Trainer (GRT), a 65 inch touch screen that had the goal of mimicking real hardware since we didn't have that many real racks in our new space. In order to avoid the Glass Racks from looking like a video game it was decided that we would use real photographs of every rack and make them interactive. This meant taking a lot of photos of racks that we could access on base and a lot of Photoshop of hardware that we could get pictures of from onboard the ISS. Eventually what we built out over the next few years were recreations of around 6 commonly used racks on Station with a variety of configs. These had basic interactions, you could open doors, flip switches, connect virtual connectors, and had the logic behind to turn on virtual lights based on the state that they were in. I wrote the code for 1 of the models and over the years did maintenance on a few of the others.
+
+As a showcase of technology the GRT was great, we utilized them a lot in tours and I went to quite a few trade shows as the subject matter expert demoing them. As the SME on the GRTs I became an instructor teaching classes on how to utilize the GRTs as well as using them to teach fundamentals of some other components of a flight controllers job. The issue with the GRT was that it was built by programmers with requirements written by management, this meant that they lacked any form of UX. I could use them with no issues but that was because I helped make them, there were tons of small touch points, hidden buttons and no assistance if the user didn't know what to do. This project really helped me understand the need for UX and that it didn't matter how many bells and whistles a product had, if the end user can't use it then the product is worthless. 
+
+One of my final projects was the building of Glass Rack v2. Since we had access to better CAD files we built it using Unity. I modelled a variety of racks and payloads in Blender, handling all the modeling, unwrapping, and texturing myself. I wrote all the initial prototype code to act as a proof of concept to show to teams and management in order to get the project green lit. Once the project was approved I got the help of a dedicated developer that built a lot of the underlying systems while I focused more on the UI and interactions. This project helped build the building blocks of my Unity skillset so that when the Microsoft HoloLens was announced I was allowed to prototype new training tools for Augmented and Virtual Reality. I got to spend a lot of time in a 0-1 type role just building prototypes that would be demoed to teams and leadership.
+
+Having worked in the LTC for a total of 15 years before I left I was known to a lot of people. I met all the new hires because they all had to go through my courses during their initial training. As a part of the wider training team I also taught in our course where we taught flight controllers that didn't have training backgrounds how to train people when they transitioned to training leads for their teams. A part of working with other teams for a central training lab was that I interacted a lot with the training leads of those teams trying to help them provide better training tools. These could be new features in our simulator, a 3D printed piece of hardware for better familiarity, or just helping to schedule time in the lab and be available for tech support if something wasn't working. I didn't realize it but I was doing a lot of the Product Manager and Customer Success role, gathering requirements, working with the technical team to build even if that team was only me for some projects, and ultimately delivering something for them to use in their training flow.
+
+A final big component of my job were tours, I have done countless tours over the my 15 years. Tours helped me learn how to speak to people, I have given tours to groups ranging from elementary students, scientist, astronauts, to government officials. They all have different levels of understanding of what our lab did and in turn needed a different approach to touring.
+
+</ExperienceEntry>
+
+---
+
+<ExperienceEntry
+  role="Laboratory Training Complex Manager"
+  company="Teledyne Brown Engineering / NASA"
+  period="2022 – 2022"
+  location="Marshall Space Flight Center Huntsville, AL"
+  tags={["Operations", "Training", "NASA"]}
+>
+
+This was a very short chapter in my time at NASA. After 15 years working in the lab I was able to become the manager of the facility. It seemed like the logical next step, I already knew every system of the lab, I had a good rapport with the other teams and their training leads, and I already going to a lot of the meetings that the manager would need to go to after the previous manager left. This role was essentially the same as my previous role but with the added function of managing day-to-day operations and also becoming a bit more focused on figuring out the future of the lab.
+
+</ExperienceEntry>
 
 ---
 
@@ -19,47 +67,21 @@ The throughline: I'm drawn to problems where the gap between what people *know* 
   tags={["AR/VR", "Product Management", "Aerospace"]}
 >
 
-At Blue Origin, I worked where the hardware gets built — on the floor, with the engineers and technicians who assemble space vehicles. My job was to figure out where XR could genuinely help and then get it there.
+Working at Blue as probably one of the coolest jobs I ever had. Unfortunately I can't say a lot about what I did there because Blue is pretty secretive. I'm going to try to say what I can without giving any details of how we were doing things.
 
-That meant shaping the roadmap for AR/VR initiatives, managing a Jira backlog across multiple stakeholder teams, and running VR sessions where engineers could evaluate installation approaches in 3D before committing to them in metal. We caught design and workflow problems earlier, and in 2–3 production work cells, technicians used AR overlays during final assembly — contributing to roughly 10–15% faster assembly times.
+The XR team was XR team varied in size while I was there but we were about 6 people. Our team consisted of developers, 3D artist and System Admins. System Administrator is not the best title because it sounds like I worked in IT, in reality I was probably more of a technical product manager. We serviced the whole company providing XR support whenever someone needed it.
 
-The part I valued most: learning to say no to low-impact use cases. Not every problem needs XR. Getting good at that judgment made the wins count more.
+I was based in Huntsville Alabama which is where Blue builds almost all of their engines. My role was to provide XR capabilities to anyone that required them locally. This could be the use of a VR headset in my lab, a HoloLens for use on the floor, or reality capture. 
 
-</ExperienceEntry>
+Huntsville was very focused on manufacturing engines so there wasn't much of a need locally for XR. That didn't mean I wasn't busy, I supported our other sites by building XR experiences for them. A lot of my role was supporting my team mates at other sites. They would make initial contact with a team that was interested in our technology and gather requirements, those requirements would then pass to me and I would put together something that met their needs. This could have been a VR scene allowing them to explore hardware that hadn't been built or AR experiences that placed holograms in their environment. My specialty became Augmented Reality, I helped build a lot of the AR experiences that our team deployed helping to push the tools we had access to and drive some of the enhancements that our developers built. I spent a lot of time as the man behind the curtain, the voice in a new users ear guiding them through how the tool worked or gathering information on what was useful, intuitive, or not necessary. 
 
----
+As the SME on the technology I got to help give my thoughts on how we can utilize XR to meet the requirements of the project. Also as someone who learned a lot from my GRT project I tried to schedule time with the technicians that were going to be the end user of my projects getting their feedback to make something that they were going to want to put on and use on their shifts. 
 
-<ExperienceEntry
-  role="Laboratory Training Complex Manager"
-  company="Teledyne Brown Engineering / NASA"
-  period="Jun 2022 – Dec 2022"
-  location="Huntsville, AL"
-  tags={["Operations", "Training", "NASA"]}
->
+In the limited pilots that we ran we were successful seeing enhancements to speed and accuracy. 
 
-A shorter chapter, but a meaningful one. I ran day-to-day operations for NASA's full-scale ISS Laboratory Training Complex — a facility that hosted 3–5 flight controller training sessions per week. When a mission is on the line, the lab has to work.
+Another small aspect of my job was reality capture. This was 3D scanning of facilities, not metrology grade 3D scanning but utilizing lidar and photogrammetry. I scanned quite a few locations between Huntsville, Florida, and the middle of no where Texas in the dessert in January. Those were long work days but the outputs were very popular and useful to different teams. As part of Reality Capture I was able to pioneer some new techniques that Huntsville used for doing engine check outs. 
 
-Beyond keeping the lights on, I facilitated roadmap sessions with instructors, engineers, and operations staff to plan the next generation of training tools. It sharpened my understanding of how training infrastructure has to flex around the rhythm of real missions.
-
-</ExperienceEntry>
-
----
-
-<ExperienceEntry
-  role="Hardware Integration Project Lead"
-  company="Teledyne Brown Engineering / NASA"
-  period="2007 – 2022"
-  location="Huntsville, AL"
-  tags={["XR", "Simulation", "Training Systems", "NASA"]}
->
-
-Fifteen years building training tools for the International Space Station program. I started making physical hardware mockups and ended up building virtual environments — which is a pretty good summary of how the field moved during that time.
-
-The flagship work was the Glass Rack Trainer system: digital representations of ISS hardware that trainees couldn't physically access. They gave flight controllers and astronauts meaningful familiarity with equipment before live operations, and we deployed them to 3–4 NASA sites for astronaut training, flight controller training, and public outreach.
-
-I also built AR-based training setups that let instructors run sessions with students in remote locations — a capability that turned out to matter a lot more when the world went remote in 2020. Toward the end of this chapter, I built Power BI dashboards to track facility usage and help leadership make better decisions about resource allocation.
-
-The through-line across all of it: end-to-end ownership. Requirements, design, build, deployment, instructor onboarding — and then iterating based on what actually happened in the room.
+As I stated before Blue was probably one of the coolest jobs I ever had. I got to see a lot of cool hardware, I've stood inside of the aft of New Glenn in order to help setup XR activities. I have walked the New Glenn launch pad and gone up the tower to look down on it to see how big everything is. My name is on a BE-3U engine that is currently on display at the US Space and Rocket Center in Huntsville. It was unfortunate when I got laid off, but that's how things work out. looking forward to the future. 
 
 </ExperienceEntry>
 
@@ -68,17 +90,17 @@ The through-line across all of it: end-to-end ownership. Requirements, design, b
 <ExperienceEntry
   role="Freelance Product Design & Development"
   company="Independent"
-  period="Oct 2025 – Present"
+  period="2025 – Present"
   location="Remote"
-  tags={["Product Design", "UX", "SaaS", "Next.js", "Figma"]}
+  tags={["Product Design", "UX", "SaaS", "AI", "Figma"]}
 >
 
-After aerospace, I wanted to test what I'd built against a completely different context. I've been working as the sole designer for an early-stage maritime logistics SaaS startup — which means collaborating directly with founders, partnering with their engineering team, and making product decisions that directly affect whether they close customers.
+After Blue Origin I was contacted by some ex Blue employees that were building a startup and had worked with me while I was at Blue. They knew I had a design background and enjoyed working with me in the past. So I started doing some freelance design work for them, it started out as basic things like updating graphics, brochures, and logo work. 
 
-I built their design system from scratch (20–50 reusable components across multiple product iterations), created the brand guidelines and client-facing materials that supported their sales process, and developed high-fidelity Figma prototypes — enhanced with Figma Make for complex interactions — that consistently showed up in investor pitches and client demos.
+Eventually my work was liked enough that I started helping with their app design. This work was all done in Figma, something I had heard of but never used before. Like everything else I've ever been tasked with I said I'd look into it and figure it out. That is how I have always worked, I don't think I have ever said I couldn't outright do something. My response is normally to give me some time to research, watch some tutorials and learn and then I'll help out as best I can. Luckily Figma isn't hard, mastering it would take time but overall I knew the basics of design and could jump right in helping out. 
 
-On the technical side, I built a functional MVP using Next.js, Cesium.js, and Supabase to validate feasibility and give stakeholders something real to react to before engineering investment.
+I built a few different iterations on their product, helping their founder and team get the ideas they had in their head onto a screen so that they could start to figure out what worked and what didn't. Figma has some cool AI features allowing me to take an initial design and expand upon it, quickly iterating and building prototypes that are interactive and not just static. I go into this more in my Figma breakdown.
 
-Working at this scale — fast, scrappy, high-stakes — has been a good complement to the methodical pace of aerospace programs.
+AI also helped me in building a prototype of the startups app. It was more of a personal test for me to see what AI could help with, I had heard of vibe coding but had mostly stayed away from it. I spent a little over a week working with Claude Code to build out a working prototype that matched some of what I had designed but functionally worked. I think as a designer that has a pretty technical background AI has given me the ability to take ideas in my head and quickly build them out and iterate on them. I have a few breakdowns in my projects list that go into detail about how I have been utilizing AI. 
 
 </ExperienceEntry>

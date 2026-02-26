@@ -31,17 +31,17 @@ My problem ended up being that digitizing itself is a skill and an art. I was ab
 What I was lacking was the feedback of an instructor that knew what they were doing and could tell me why my design would possibly fail if I ran it on the machine. I could have gone and bought courses that would teach me the basics, but it's a niche market and high quality courses meant spending more money than I wanted to spend at the time. I could also have bought 
 all my designs off of Etsy or paid to have them digitized, but Etsy is a dice roll of quality and why have someone else make the files when I had all the tools already. Eventually my embroidery machine started to collect dust, sitting on my desk reminding me of my lack of skill. 
 
+<Summary>
+Digitizing embroidery files yourself is hard. There is industry knowledge that I don't have and didn't want to buy expensive courses to possibly gain that knowlege. AI was a new tool that was gaining popularity and I wanted to see if I could build something that could help me get better at digitizing. 
+</Summary>
+
 ## Solution Approach
 
-My solution ended up being the want to learn about AI more. Videos kept popping up on my youtube about how people were vibe coding full apps with no coding experience, and while that was intriguing I pushed back on that idea. I have a really small programming background, I learned Visual Basic in 
-high school, started college wanting to be a computer engineer learning C++, joined the robtics club in college and wrote C to make robots work, and used C# and Unity to build XR prototypes when I worked at NASA. I would not call myself a developer, I don't have the skills to build something from 
-start to finish, just bits and pieces. I had pushed back on vibe coding because I told myself that I wanted to write the code of the projects I built. Ultimatley that was holding me back, I have a lot of ideas in my head but always lacked the skill to execute, the launch of Claude Code and Opus 4.5 
-started to make it seem like I could start to bring some of the ideas I had to life. 
+My solution ended up being the want to learn about AI more. Videos kept popping up on my youtube about how people were vibe coding full apps with no coding experience, and while that was intriguing I pushed back on that idea. I have a really small programming background, I learned Visual Basic in high school, started college wanting to be a computer engineer learning C++, joined the robtics club in college and wrote C to make robots work, and used C# and Unity to build XR prototypes when I worked at NASA. I would not call myself a developer, I don't have the skills to build something from start to finish, just bits and pieces. I had pushed back on vibe coding because I told myself that I wanted to write the code of the projects I built. Ultimatley that was holding me back, I have a lot of ideas in my head but always lacked the skill to execute, the launch of Claude Code and Opus 4.5 started to make it seem like I could start to bring some of the ideas I had to life. 
 
 So back down the rabbit hole of consuming lots of tutorials and best practices videos on Youtube I went. I needed an easy project and this seemed in my head like something that wouldn't be to complex. My initial project was can I build a web based viewer of my embroidery files, if this worked I'd expand the scope.
 
-I started off as simple as it got, no CLI tools, no VSCode, just Claude.ai and a single prompt of "I want to investigate the possibility of building an visualizer for embroidery files." and what followed was a conversation about how embroidery files worked in particular EXP files since that's what my 
-machine used natively. Why the conversation and not just tell Claude I wanted to build a EXP visualizer? I like to learn I didn't want AI to be a black box where I give it a task and it magically comes back with a solution that I didn't know how it worked. After talking it out my plan was to build a parser first and visualizer second.
+I started off as simple as it got, no CLI tools, no VSCode, just Claude.ai and a single prompt of "I want to investigate the possibility of building an visualizer for embroidery files." and what followed was a conversation about how embroidery files worked in particular EXP files since that's what my machine used natively. Why the conversation and not just tell Claude I wanted to build a EXP visualizer? I like to learn I didn't want AI to be a black box where I give it a task and it magically comes back with a solution that I didn't know how it worked. After talking it out my plan was to build a parser first and visualizer second.
 
 Amazingly the parser worked after the first attempt, I'm not sure if it was luck or having Claude talk it through with me that gave it more context. My next step was a visualizer something that showed me paths and stitches, again this worked fist try. This got me to think I could push the project further and now my goal was as followed.
 1. Upload a .exp embroidery file
@@ -49,10 +49,18 @@ Amazingly the parser worked after the first attempt, I'm not sure if it was luck
 3. Visually show me problem areas of my design
 4. Provide solutions on how to fix problem areas
 
+<Summary>
+I wanted to learn now to utilize AI and decided a EXP parser and viewer could be an easy test project. After successfully building that I decided to expand the project build out a full emboidery file parser and give feedback based on the design.
+</Summary>
+
 ### My Approach
 
 I knew from the beginning I wanted to try and push AI to see where the limits were in making a product. I had been unemployeed for a time at this point and had been applying to a lot of Product Manager roles, this was going to be a project where I acted as the Product Manager. AI would do all the cross functional work
 and I would help guide the vision of the project leaning on my technical and design background to shape the product but not get bogged down in the complicated parts that I knew I didn't have the skills to code. 
+
+<Summary>
+I wanted to act as a Product Manager and have AI build everything with guided input from myself.
+</Summary>
 
 ## Technical Implementation
 
@@ -65,10 +73,13 @@ The initial parser would just provide me back with details about the design I ha
 
 Jumping to the future for a second I eventually found the [EduTech Wiki](https://edutechwiki.unige.ch/en/Embroidery_format) which had technical breakdowns of the formats of a few common embroidery file formats. I used this website extensively to help guide Claude to build the parsers the right way rather than it's way.
 
+<Summary>
+Initially I let Claude research and write the parser itself. In the end there were some slight issues so I did the research and found technical documentation for EXP as well as other formats to build more robust parsers.
+</Summary>
+
 ### Initial Visualization
 
-Next step was the visualizer. This started off as a simple task of plotting all of the points that the parser was finding and then connecting the points with a line to visually show me what the design looked like. Super simple addition to the project and Claude was able to tackle it with no problem building a 
-web interface that popped up right next to my chat window. 
+Next step was the visualizer. This started off as a simple task of plotting all of the points that the parser was finding and then connecting the points with a line to visually show me what the design looked like. Super simple addition to the project and Claude was able to tackle it with no problem building a web interface that popped up right next to my chat window. 
 
 Claude took the visualizer prompt built the following, a canvas renderer that supports five modes switchable without re-parsing:
 
@@ -77,6 +88,10 @@ Claude took the visualizer prompt built the following, a canvas renderer that su
 - **Sequence** — rainbow gradient mapped to stitch order
 
 ![First test at visualizing an embroidery file](/images/projects/Parser-2.webp)
+
+<Summary>
+A simple viewer of the file was built and then iterated on to add other visualizations without the need to re-parse the file. 
+</Summary>
 
 ### Quality Analysis Engine
 
@@ -107,6 +122,10 @@ The visualizer was updated to support:
 The analyzer is really generic and I know that, I told Claude to search the internet and determine best practices. Ideally there are best practices for different types of fabric, but that's a task for future me if the need arrises that I build that feature out more. I didn't want to 
 add scope creep and keep adding features just because I could. 
 
+<Summary>
+After visualization came the need to analyze the design. Claude was tasked with generating a best practices rubric and analyzes the parsed file against that rubric. Issues types that are detected are called out and given soulutions. A visualizer tab was built to visually show where the issues are located in the design. Issues tracked were: Stitch Length, Density, Pathing, Jumps and Trims, Sequencing, Stacking.
+</Summary>
+
 ### Analysis Results
 
 The results came right away. The first file I uploaded was one I created myself, a pumpkin that I had made thinking that I'd put it on a shirt for my daughter for halloween. My initial stitch out of that design was a mess of thread and a broken needle, and I had no idea why that had happened.
@@ -117,6 +136,10 @@ sequentually were within 5mm of each other and called those out, but it didn't c
 
 Re-uploading my design to the new version gave me back feedback that my deisgn could cause issues including the breaking of needles, exactly what happened to me. My analyzer also provided feedback as to how to fix the problem. This was turning out to be something that I knew would be useful for me
 and could possibly be useful for other hobbiest like myself that are trying to learn digitizing but are having trouble. 
+
+<Summary>
+Initial testing was positive. A design that was previously digitized by myself and known to have issues was uploaded and the analyzer called out issue spots and provided feedback that reflected what really happened when I attempted to run this file on my machine.
+</Summary>
 
 ### Animated Visualizer
 
@@ -134,6 +157,10 @@ Initial playback was simple, play/pause of the uploaded design but it later evol
 
 ![Visualization playback](/images/projects/Parser-6.webp)
 
+<Summary>
+With visualization and analysis complete I decided that I wanted to build a way to playback the design and generate a gif or video for social media or digital storefront needs.
+</Summary>
+
 ## Extending Parsing Capabilities
 
 I initially built my analyzer to utilize EXP files because that was what my digitizer defaulted to and what my machine read. I knew that not everyone had the same machine and also didn't use the same file formats for their machines so I decided to take on the task of building more parsers for the formats that 
@@ -147,6 +174,10 @@ In the end I had individual parsers for the following formats:
 - PES
 - VP3
 - JEF
+
+<Summary>
+Scope creep, I didn't need this feature but I knew if I published this tool online that not everyone used the same file format. These were file formats that I had technical documentation for so building individual parsers shouldn't be to big of an issue. Final files supported are: EXP, DST, PES, VP3, JEF.
+</Summary>
 
 ### Parser Analysis
 
@@ -172,12 +203,20 @@ I had Claude build that into the DST parser and eventually I had a stored amount
 
 With all my parsers matching my known records 100% I considered the parsers complete and exported each one as individual files to integrate into the larger project.
 
+<Summary>
+In order to test the parsers I got the details of a known file that I had in every file format that Stitch Out supported. Claude built tests and verified each detail was correct and that the parsers passed with 100% accuracy. Some parsers had initial issues but after reading documentation and questioning the process of Claude solutions were found and the parsers all individually passed the test and were integrated into the larger project.
+</Summary>
+
 ## Aesthetic Decisions
 
 Like the technical implentation I wanted to leave everything up to Claude initially. I didn't design anything for this project other than eventually the logo. That's not to say that I didn't make design suggestions, I would adjust text sizes to make it more readable, tell Claude to merge sections that 
 seemed like they would make more sense together rather than appart, and adjust the format of the section layout to feel a bit better on the UX side. 
 
 This project is still evolving and as I learn new tools and skills I'll probably make adjustment. I will more than likely end up running the whole project through Claude's Front-End Design skill and see what suggestions it has to better enhance the look and feel.
+
+<Summary>
+Initial design was all buiilt by Claude, however there are lots of tweaks that I have been implementing in order to make UX changes that I think make sense. UI/UX overhaul is on my list of tasks for later.
+</Summary>
 
 ## Design Decisions
 
@@ -213,6 +252,7 @@ I don't think AI in it's current form isn't going to replace me. However AI is g
 
 ## What's Next
 
+- **UX Pass** — Currently this is all Claude's work. I'm going to take a pass at making more directed adjustments to make the page look and feel a bit less AI built. 
 - **Deployment** — Where am I going to post this for public consumption? Will it have it's own URL or be a sub domain to my website
 - **Feedback** — I built this in a vacuum for me, I want user feedback on if it's useful for them and if not why
 - **Recipies** — Different fabrics have different best practices, I want to adjust my analysis score and feedback based on these Recipies

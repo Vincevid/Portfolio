@@ -1,0 +1,211 @@
+---
+// No props — entries are discovered client-side via data-* attributes
+---
+
+<nav class="exp-timeline" aria-label="Experience timeline">
+  <div class="exp-timeline-label">
+    <span class="exp-timeline-label-text">Timeline</span>
+    <div class="exp-timeline-label-line"></div>
+  </div>
+  <ol class="exp-timeline-list" id="exp-timeline-list"></ol>
+</nav>
+
+<script>
+  function initTimeline() {
+    const list = document.getElementById('exp-timeline-list');
+    if (!list) return;
+
+    // Discover all experience entries in document order
+    const entries = Array.from(
+      document.querySelectorAll<HTMLElement>('article[data-experience-period]')
+    );
+    if (entries.length === 0) return;
+
+    // Clear any previously rendered items (e.g. after view transitions)
+    list.innerHTML = '';
+
+    // Build nav items and a map for active tracking
+    const linkMap = new Map<string, HTMLAnchorElement>();
+
+    entries.forEach((article) => {
+      const id = article.id;
+      const period = article.dataset.experiencePeriod ?? '';
+
+      const li = document.createElement('li');
+      li.className = 'exp-timeline-item';
+
+      const a = document.createElement('a');
+      a.href = `#${id}`;
+      a.className = 'exp-timeline-link';
+      a.dataset.entryId = id;
+
+      const periodSpan = document.createElement('span');
+      periodSpan.className = 'exp-timeline-period';
+      periodSpan.textContent = period;
+
+      a.appendChild(periodSpan);
+      li.appendChild(a);
+      list.appendChild(li);
+
+      linkMap.set(id, a);
+    });
+
+    // Active state management
+    const visibleSet = new Set<string>();
+
+    function setActive(id: string | null) {
+      linkMap.forEach((a) => a.classList.remove('exp-timeline-link--active'));
+      if (id && linkMap.has(id)) {
+        linkMap.get(id)!.classList.add('exp-timeline-link--active');
+      }
+    }
+
+    function pickActive() {
+      for (const article of entries) {
+        if (visibleSet.has(article.id)) {
+          setActive(article.id);
+          return;
+        }
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (observerEntries) => {
+        observerEntries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visibleSet.add(entry.target.id);
+          } else {
+            visibleSet.delete(entry.target.id);
+          }
+        });
+        pickActive();
+      },
+      { rootMargin: '-10% 0px -80% 0px' }
+    );
+
+    entries.forEach((el) => observer.observe(el));
+
+    // Set initial active from hash or first entry
+    const hash = window.location.hash.slice(1);
+    if (hash && linkMap.has(hash)) {
+      setActive(hash);
+    } else if (entries.length > 0) {
+      setActive(entries[0].id);
+    }
+  }
+
+  initTimeline();
+  document.addEventListener('astro:after-swap', initTimeline);
+</script>
+
+<style>
+  .exp-timeline {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .exp-timeline::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Label — matches toc-label and section-label patterns */
+  .exp-timeline-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .exp-timeline-label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .exp-timeline-label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
+  }
+
+  /* List with vertical connecting line */
+  .exp-timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 6px;
+    border-left: 1px solid rgba(65, 196, 66, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Each item has a dot on the vertical line */
+  .exp-timeline-item {
+    position: relative;
+    margin: 0;
+  }
+
+  .exp-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; /* (8px dot - 1px line) / 2 = 3.5px ≈ 4px for crisp alignment */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(65, 196, 66, 0.3);
+    border: 1px solid rgba(65, 196, 66, 0.5);
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+    pointer-events: none;
+  }
+
+  /* Active dot — filled brand green */
+  .exp-timeline-item:has(.exp-timeline-link--active)::before {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+
+  /* Links */
+  .exp-timeline-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-sm);
+    border-left: 2px solid transparent;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    text-decoration: none;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-base);
+    margin-left: 4px; /* offset so left-border sits flush with the connecting line */
+  }
+
+  .exp-timeline-link:hover {
+    border-left-color: rgba(65, 196, 66, 0.4);
+    background-color: rgba(65, 196, 66, 0.05);
+  }
+
+  .exp-timeline-link--active {
+    border-left-color: var(--color-brand);
+    background-color: rgba(65, 196, 66, 0.08);
+  }
+
+  .exp-timeline-period {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+
+  .exp-timeline-link--active .exp-timeline-period {
+    color: var(--color-text);
+  }
+</style>

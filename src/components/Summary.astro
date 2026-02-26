@@ -1,0 +1,120 @@
+---
+// No props — content comes entirely from the slot.
+---
+
+<aside class="summary-callout">
+  <div class="summary-label">
+    <span class="label-text">Summary</span>
+    <div class="label-line"></div>
+  </div>
+  <div class="summary-body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .summary-callout {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.4), rgba(35, 35, 35, 0.6));
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    border-left: 3px solid rgba(65, 196, 66, 0.6);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    margin: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  /* Top accent bar — fades in on hover */
+  .summary-callout::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .summary-callout:hover {
+    border-color: rgba(65, 196, 66, 0.4);
+    box-shadow: 0 8px 24px rgba(65, 196, 66, 0.15);
+  }
+
+  .summary-callout:hover::before {
+    opacity: 1;
+  }
+
+  /* Label row */
+  .summary-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
+  }
+
+  /* Slot content */
+  .summary-body :global(p) {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .summary-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .summary-body :global(ul),
+  .summary-body :global(ol) {
+    padding-left: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-secondary);
+  }
+
+  .summary-body :global(li) {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.7;
+  }
+
+  .summary-body :global(li:last-child) {
+    margin-bottom: 0;
+  }
+
+  .summary-body :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .summary-callout {
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .summary-callout,
+    .summary-callout::before {
+      transition: none;
+    }
+  }
+</style>

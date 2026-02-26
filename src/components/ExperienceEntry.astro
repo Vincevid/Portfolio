@@ -8,9 +8,20 @@ interface Props {
 }
 
 const { role, company, period, location, tags } = Astro.props;
+
+const entryId = [company, period]
+  .join('-')
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '');
 ---
 
-<article class="experience-entry">
+<article
+  class="experience-entry"
+  id={entryId}
+  data-experience-period={period}
+  data-experience-company={company}
+>
   <div class="entry-label">
     <span class="label-text">{company}</span>
     <div class="label-line"></div>

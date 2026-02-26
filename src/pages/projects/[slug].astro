@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
+import Summary from '../../components/Summary.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -109,7 +110,7 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
 
       <!-- Project Content (MDX) -->
       <div class="project-content">
-        <Content />
+        <Content components={{ Summary }} />
       </div>
     </article>
 
