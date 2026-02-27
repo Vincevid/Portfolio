@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
 
-// Get all projects
 const allProjects = await getCollection('projects');
 const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
@@ -13,9 +12,13 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
 >
   <div class="projects-page">
     <header class="page-header">
+      <div class="header-label">
+        <span class="label-text">Work</span>
+        <div class="label-line"></div>
+      </div>
       <h1>All Projects</h1>
       <p class="subtitle">
-        A collection of my work across aerospace, XR technologies, and product design.
+        A collection of personal projects and design experimentation.
       </p>
     </header>
 
@@ -27,7 +30,7 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
           style={`animation-delay: ${index * 0.1}s`}
         >
           <div class="card-image">
-            <img src={project.data.heroImage} alt={project.data.title} />
+            <video src={project.data.heroImage} autoplay loop muted playsinline />
           </div>
           <div class="card-content">
             <h2 class="card-title">{project.data.title}</h2>
@@ -60,8 +63,33 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
     max-width: 1200px;
   }
 
+  /* ── Page Header ───────────────────────────── */
   .page-header {
     margin-bottom: var(--spacing-3xl);
+    animation: fadeUp 0.8s ease-out 0.1s both;
+  }
+
+  .header-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
   }
 
   .page-header h1 {
@@ -76,41 +104,58 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
     line-height: 1.7;
   }
 
-  /* Projects Grid */
+  /* ── Projects Grid ─────────────────────────── */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: var(--spacing-2xl);
+    animation: fadeUp 0.8s ease-out 0.25s both;
   }
 
+  /* ── Project Card ──────────────────────────── */
   .project-card {
-    background-color: var(--color-bg-card);
+    background: linear-gradient(
+      135deg,
+      rgba(45, 45, 45, 0.4),
+      rgba(35, 35, 35, 0.6)
+    );
+    border: 1px solid rgba(65, 196, 66, 0.15);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-    opacity: 0;
-    animation: fadeIn 0.6s ease-out forwards;
+    transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
     text-decoration: none;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Top accent bar — hidden by default, revealed on hover */
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    z-index: 1;
   }
 
   .project-card:hover {
+    border-color: rgba(65, 196, 66, 0.4);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 24px rgba(65, 196, 66, 0.15);
   }
 
+  .project-card:hover::before {
+    opacity: 1;
+  }
+
+  /* ── Card Image / Video ────────────────────── */
   .card-image {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -118,17 +163,18 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
     overflow: hidden;
   }
 
-  .card-image img {
+  .card-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition-base);
   }
 
-  .project-card:hover .card-image img {
+  .project-card:hover .card-image video {
     transform: scale(1.05);
   }
 
+  /* ── Card Content ──────────────────────────── */
   .card-content {
     padding: var(--spacing-lg);
     flex: 1;
@@ -137,6 +183,7 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
   }
 
   .card-title {
+    font-family: var(--font-family-display);
     font-size: var(--font-size-xl);
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
@@ -151,19 +198,30 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
     flex: 1;
   }
 
+  /* ── Card Meta (role / company) ────────────── */
   .card-meta {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
     margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+  }
+
+  .card-role,
+  .card-company {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(65, 196, 66, 0.7);
+    font-weight: 600;
   }
 
   .separator {
     color: var(--color-border);
+    font-size: var(--font-size-xs);
   }
 
+  /* ── Tags — glassmorphism chips ────────────── */
   .card-tags {
     display: flex;
     flex-wrap: wrap;
@@ -173,13 +231,32 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
   .card-tag {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    background-color: var(--color-bg-elevated);
+    background-color: rgba(45, 45, 45, 0.8);
+    backdrop-filter: blur(10px);
     padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(65, 196, 66, 0.2);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
   }
 
-  /* Responsive Design */
+  .project-card:hover .card-tag {
+    color: var(--color-text-secondary);
+    border-color: rgba(65, 196, 66, 0.35);
+  }
+
+  /* ── Entrance Animation ────────────────────── */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ── Responsive ────────────────────────────── */
   @media (max-width: 768px) {
     .projects-grid {
       grid-template-columns: 1fr;
@@ -191,8 +268,10 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
     }
   }
 
-  /* Accessibility - Reduced Motion */
+  /* ── Reduced Motion ────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
+    .page-header,
+    .projects-grid,
     .project-card {
       animation: none;
       opacity: 1;
@@ -202,7 +281,7 @@ const sortedProjects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data
       transform: none;
     }
 
-    .project-card:hover .card-image img {
+    .project-card:hover .card-image video {
       transform: none;
     }
   }

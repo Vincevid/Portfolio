@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content, headings } = await project.render();
-const { title, description, role, company, duration, tags, technologies, liveUrl, githubUrl, heroImage, date } = project.data;
+const { title, description, role, company, duration, tags, technologies, liveUrl, githubUrl, downloads, heroImage, date } = project.data;
 const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
 ---
 
@@ -97,7 +97,7 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
         <div class="project-links">
           {liveUrl && (
             <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="project-link project-link--primary">
-              View Live Site →
+              Visit Stitch Out →
             </a>
           )}
           {githubUrl && (
@@ -106,6 +106,23 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
             </a>
           )}
         </div>
+
+        <!-- Downloads -->
+        {downloads && downloads.length > 0 && (
+          <div class="project-downloads">
+            <h4 class="downloads-heading">Downloads</h4>
+            <div class="downloads-list">
+              {downloads.map((item) => (
+                <div class="download-item">
+                  <p class="download-description">{item.description}</p>
+                  <a href={item.url} download class="project-link project-link--download">
+                    {item.label} ↓
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </header>
 
       <!-- Project Content (MDX) -->
@@ -113,6 +130,19 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
         <Content components={{ Summary }} />
       </div>
     </article>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-nav lightbox-nav--prev" id="lightbox-prev" aria-label="Previous image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <img src="" alt="" class="lightbox-img" id="lightbox-img" />
+      <button class="lightbox-nav lightbox-nav--next" id="lightbox-next" aria-label="Next image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
 
     {hasToc && (
       <aside class="toc-column">
@@ -404,6 +434,70 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     transform: translateY(-2px);
   }
 
+  /* Downloads */
+  .project-downloads {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .downloads-heading {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+    font-weight: 500;
+  }
+
+  .downloads-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .download-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.4), rgba(35, 35, 35, 0.6));
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    border-radius: var(--radius-md);
+  }
+
+  .download-description {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .project-link--download {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .project-link--download:hover {
+    background-color: rgba(65, 196, 66, 0.1);
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .download-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .project-link--download {
+      align-self: stretch;
+      justify-content: center;
+    }
+  }
+
   /* Project Content (MDX) */
   .project-content {
     line-height: 1.8;
@@ -484,12 +578,122 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     border: 1px solid rgba(65, 196, 66, 0.15);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
     margin: var(--spacing-xl) auto;
-    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+    transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+    cursor: zoom-in;
   }
 
   .project-content :global(img):hover {
     box-shadow: 0 8px 32px rgba(65, 196, 66, 0.12), 0 4px 24px rgba(0, 0, 0, 0.5);
     border-color: rgba(65, 196, 66, 0.3);
+    transform: scale(1.01);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    backdrop-filter: blur(6px);
+  }
+
+  .lightbox.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(65, 196, 66, 0.3);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(65, 196, 66, 0.1);
+    transform: scale(0.95);
+    transition: transform 0.25s ease, opacity 0.15s ease;
+  }
+
+  .lightbox.is-open .lightbox-img {
+    transform: scale(1);
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-xl);
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(65, 196, 66, 0.3);
+    color: var(--color-text);
+    font-size: 1.75rem;
+    line-height: 1;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .lightbox-close:hover {
+    background: rgba(65, 196, 66, 0.15);
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+  }
+
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(65, 196, 66, 0.3);
+    color: var(--color-text);
+    font-size: 2.5rem;
+    line-height: 1;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+  }
+
+  .lightbox-nav--prev { left: var(--spacing-xl); }
+  .lightbox-nav--next { right: var(--spacing-xl); }
+
+  .lightbox-nav:hover {
+    background: rgba(65, 196, 66, 0.15);
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+  }
+
+  .lightbox-nav:disabled {
+    opacity: 0.2;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .lightbox-counter {
+    position: fixed;
+    bottom: var(--spacing-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.1em;
   }
 
   /* In-content videos */
@@ -541,3 +745,81 @@ const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
     }
   }
 </style>
+
+<script>
+  const lightbox = document.getElementById('lightbox') as HTMLElement;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const closeBtn = document.getElementById('lightbox-close') as HTMLButtonElement;
+  const prevBtn = document.getElementById('lightbox-prev') as HTMLButtonElement;
+  const nextBtn = document.getElementById('lightbox-next') as HTMLButtonElement;
+  const counter = document.getElementById('lightbox-counter') as HTMLElement;
+
+  const images = Array.from(document.querySelectorAll('.project-content img')) as HTMLImageElement[];
+  let currentIndex = 0;
+
+  function updateNav() {
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+    counter.textContent = images.length > 1 ? `${currentIndex + 1} / ${images.length}` : '';
+  }
+
+  function showImage(index: number) {
+    currentIndex = index;
+    const img = images[currentIndex];
+    // Briefly fade out, swap src, fade back in
+    lightboxImg.style.opacity = '0';
+    lightboxImg.style.transform = 'scale(0.96)';
+    setTimeout(() => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxImg.style.opacity = '';
+      lightboxImg.style.transform = '';
+    }, 150);
+    updateNav();
+  }
+
+  function openLightbox(index: number) {
+    currentIndex = index;
+    const img = images[currentIndex];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    updateNav();
+    closeBtn.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  images.forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(i));
+  });
+
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) showImage(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (currentIndex < images.length - 1) showImage(currentIndex + 1);
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft' && currentIndex > 0) showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight' && currentIndex < images.length - 1) showImage(currentIndex + 1);
+  });
+</script>
