@@ -4,134 +4,218 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 
 <PortfolioLayout
   title="Contact"
-  description="Get in touch with Vincent Vidaurri"
+  description="Get in touch with Vincent Vidaurri — reach out via email or connect on LinkedIn."
 >
   <div class="contact">
     <header class="contact-header">
+      <div class="header-label">
+        <span class="label-text">Contact</span>
+        <div class="label-line"></div>
+      </div>
       <h1>Get in Touch</h1>
       <p class="subtitle">
-        I'm always interested in hearing about new opportunities, collaborations, or just chatting
-        about aerospace, XR, and product design.
+        Whether it's a new opportunity, a collaboration, or just a conversation about aerospace,
+        XR, or product design — I'd love to hear from you.
       </p>
+      <div class="availability-badge">
+        <span class="availability-dot" aria-hidden="true"></span>
+        <span class="availability-text">Available for opportunities</span>
+      </div>
     </header>
 
-    <div class="contact-content">
-      <!-- Contact Form -->
-      <section class="contact-form-section">
-        <h2>Send a Message</h2>
-        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <!-- Hidden fields for Netlify -->
-          <input type="hidden" name="form-name" value="contact" />
-          <p class="hidden">
-            <label>
-              Don't fill this out if you're human: <input name="bot-field" />
-            </label>
-          </p>
-
-          <!-- Name Field -->
-          <div class="form-group">
-            <label for="name">Name *</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              placeholder="Your name"
-            />
+    <div class="contact-cards">
+      <!-- Email Card -->
+      <div class="card" style="animation-delay: 0.3s;">
+        <div class="card-top">
+          <div class="card-icon-badge" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
           </div>
-
-          <!-- Email Field -->
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="your.email@example.com"
-            />
-          </div>
-
-          <!-- Subject Field -->
-          <div class="form-group">
-            <label for="subject">Subject *</label>
-            <input
-              type="text"
-              id="subject"
-              name="subject"
-              required
-              placeholder="What's this about?"
-            />
-          </div>
-
-          <!-- Message Field -->
-          <div class="form-group">
-            <label for="message">Message *</label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              rows="6"
-              placeholder="Your message..."
-            ></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="submit-button">
-            Send Message
-          </button>
-        </form>
-      </section>
-
-      <!-- Contact Information -->
-      <aside class="contact-info">
-        <h2>Other Ways to Connect</h2>
-
-        <div class="info-section">
-          <h3>Email</h3>
-          <a href="mailto:vincent@example.com" class="contact-link">
-            vincent@example.com
-          </a>
+          <span class="card-platform">Email</span>
         </div>
-
-        <div class="info-section">
-          <h3>Location</h3>
-          <p class="info-text">Seattle, WA</p>
-        </div>
-
-        <div class="info-section">
-          <h3>Social</h3>
-          <div class="social-links">
-            <a href="https://linkedin.com/in/vincentvidaurri" target="_blank" rel="noopener noreferrer" class="social-link">
-              LinkedIn
-            </a>
-            <a href="https://github.com/vincentvidaurri" target="_blank" rel="noopener noreferrer" class="social-link">
-              GitHub
-            </a>
-            <a href="https://twitter.com/vincentvidaurri" target="_blank" rel="noopener noreferrer" class="social-link">
-              Twitter
-            </a>
+        <p class="card-description">Drop me a line directly. I typically respond within a day or two.</p>
+        <div class="card-meta">
+          <div class="card-meta-item">
+            <span class="card-meta-label">Response</span>
+            <span class="card-meta-value">1–2 days</span>
+          </div>
+          <div class="card-meta-item">
+            <span class="card-meta-label">Preferred</span>
+            <span class="card-meta-value">Direct contact</span>
           </div>
         </div>
+        <button class="card-cta" id="open-contact-modal">Send an Email</button>
+      </div>
 
-        <div class="info-section">
-          <h3>Response Time</h3>
-          <p class="info-text">
-            I typically respond within 24-48 hours during business days.
-          </p>
+      <!-- LinkedIn Card -->
+      <div class="card" style="animation-delay: 0.45s;">
+        <div class="card-top">
+          <div class="card-icon-badge" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </div>
+          <span class="card-platform">LinkedIn</span>
         </div>
-      </aside>
+        <p class="card-description">Connect with me professionally or check out my work history.</p>
+        <div class="card-meta">
+          <div class="card-meta-item">
+            <span class="card-meta-label">Focus</span>
+            <span class="card-meta-value">Product Design</span>
+          </div>
+          <div class="card-meta-item">
+            <span class="card-meta-label">Industry</span>
+            <span class="card-meta-value">Aerospace · XR</span>
+          </div>
+        </div>
+        <a
+          href="https://www.linkedin.com/in/vincent-vidaurri-54798721/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-cta"
+        >
+          View Profile
+        </a>
+      </div>
     </div>
   </div>
+
+  <!-- ─────────────────────────────────────────────────────
+       Contact Form — native <dialog> renders in top-layer,
+       bypassing any parent container constraints.
+  ───────────────────────────────────────────────────────── -->
+  <dialog id="contact-dialog" aria-labelledby="modal-title">
+    <div class="modal">
+
+      <header class="modal-header">
+        <div class="modal-label">
+          <span class="modal-label-text">Get in Touch</span>
+          <div class="modal-label-line"></div>
+        </div>
+        <div class="modal-title-row">
+          <h2 id="modal-title">Send a Message</h2>
+          <button class="modal-close" id="close-modal" aria-label="Close dialog">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Form State -->
+      <form
+        class="contact-form"
+        id="contact-form"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <div style="display:none" aria-hidden="true">
+          <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="form-group">
+          <label for="sender-email">Your Email</label>
+          <input
+            type="email"
+            id="sender-email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            required
+            placeholder="What's this about?"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            placeholder="Your message…"
+          ></textarea>
+        </div>
+
+        <div class="form-error" id="form-error" aria-live="polite" hidden>
+          Something went wrong — please try again or email me directly at
+          <a href="mailto:v.vidaurri+website@gmail.com">v.vidaurri+website@gmail.com</a>.
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="cancel-modal">Cancel</button>
+          <button type="submit" class="btn-submit" id="submit-btn">
+            <span class="btn-label">Send Message</span>
+            <span class="btn-sending" aria-hidden="true">Sending…</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Success State -->
+      <div class="modal-success" id="modal-success" hidden>
+        <div class="success-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+        </div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out — I'll get back to you within 1–2 days.</p>
+        <button class="card-cta" id="close-success">Close</button>
+      </div>
+
+    </div>
+  </dialog>
 </PortfolioLayout>
 
 <style>
   .contact {
-    max-width: 1000px;
+    max-width: 800px;
   }
 
+  /* ── Header ─────────────────────────────── */
   .contact-header {
     margin-bottom: var(--spacing-3xl);
+    animation: fadeUp 0.8s ease-out 0.1s both;
+  }
+
+  .header-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
   }
 
   .contact-header h1 {
@@ -142,29 +226,294 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   .subtitle {
     font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
-    max-width: 700px;
+    max-width: 600px;
     line-height: 1.7;
+    margin-bottom: var(--spacing-lg);
   }
 
-  /* Contact Content Layout */
-  .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: var(--spacing-3xl);
+  /* ── Availability Badge ──────────────────── */
+  .availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: rgba(65, 196, 66, 0.08);
+    border: 1px solid rgba(65, 196, 66, 0.25);
+    border-radius: var(--radius-xl);
   }
 
-  /* Form Section */
-  .contact-form-section h2,
-  .contact-info h2 {
-    font-size: var(--font-size-2xl);
+  .availability-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-brand);
+    box-shadow: 0 0 6px rgba(65, 196, 66, 0.6);
+    animation: pulse 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(65, 196, 66, 0.6); }
+    50%       { opacity: 0.7; box-shadow: 0 0 12px rgba(65, 196, 66, 0.9), 0 0 20px rgba(65, 196, 66, 0.3); }
+  }
+
+  .availability-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    color: var(--color-brand);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     font-weight: 600;
+  }
+
+  /* ── Card Grid ───────────────────────────── */
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+    max-width: 700px;
+  }
+
+  .card {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.4), rgba(35, 35, 35, 0.6));
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    border-left: 3px solid rgba(65, 196, 66, 0.6);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl) var(--spacing-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-base);
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .card:hover {
+    border-color: rgba(65, 196, 66, 0.4);
+    border-left-color: var(--color-brand);
+    box-shadow: 0 8px 24px rgba(65, 196, 66, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .card-icon-badge {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(45, 45, 45, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(65, 196, 66, 0.2);
+    border-radius: var(--radius-md);
+    color: var(--color-brand);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .card:hover .card-icon-badge {
+    border-color: rgba(65, 196, 66, 0.5);
+    box-shadow: 0 0 12px rgba(65, 196, 66, 0.15);
+  }
+
+  .card-platform {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    font-weight: 600;
+  }
+
+  .card-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+  }
+
+  .card-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: var(--spacing-md) 0;
+    border-top: 1px solid rgba(65, 196, 66, 0.08);
+    border-bottom: 1px solid rgba(65, 196, 66, 0.08);
+  }
+
+  .card-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding-right: var(--spacing-lg);
+    border-right: 1px solid rgba(65, 196, 66, 0.1);
+  }
+
+  .card-meta-item:last-child {
+    padding-right: 0;
+    padding-left: var(--spacing-lg);
+    border-right: none;
+  }
+
+  .card-meta-label {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-xs);
+    color: rgba(65, 196, 66, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  .card-meta-value {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  /* ── CTA — shared by card buttons + success close ── */
+  .card-cta {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    align-self: flex-start;
+  }
+
+  .card-cta:hover {
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+    background-color: rgba(65, 196, 66, 0.08);
+  }
+
+  /* ── Dialog (native top-layer element) ──── */
+  :global(#contact-dialog) {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: min(520px, calc(100vw - 2rem));
+    width: 100%;
+    /* Centre vertically + horizontally */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+
+  :global(#contact-dialog::backdrop) {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(6px);
+  }
+
+  :global(#contact-dialog[open] .modal) {
+    animation: modalIn 0.22s ease-out both;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ── Modal Panel ─────────────────────────── */
+  .modal {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.98), rgba(20, 20, 20, 0.99));
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    border-left: 3px solid rgba(65, 196, 66, 0.6);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* ── Modal Header ────────────────────────── */
+  .modal-header {
     margin-bottom: var(--spacing-xl);
   }
 
-  .hidden {
-    display: none;
+  .modal-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
   }
 
+  .modal-label-text {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .modal-label-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(65, 196, 66, 0.5), transparent);
+  }
+
+  .modal-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+  }
+
+  .modal-title-row h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background: rgba(45, 45, 45, 0.6);
+    border: 1px solid rgba(65, 196, 66, 0.15);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .modal-close:hover {
+    border-color: rgba(65, 196, 66, 0.4);
+    color: var(--color-text);
+  }
+
+  /* ── Form ────────────────────────────────── */
   .contact-form {
     display: flex;
     flex-direction: column;
@@ -174,128 +523,264 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   .form-group {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
   }
 
   .form-group label {
-    font-size: var(--font-size-base);
-    font-weight: 500;
-    color: var(--color-text);
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(65, 196, 66, 0.7);
+    font-weight: 600;
   }
 
   .form-group input,
   .form-group textarea {
     padding: var(--spacing-md);
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
+    background: rgba(45, 45, 45, 0.5);
+    border: 1px solid rgba(65, 196, 66, 0.15);
     border-radius: var(--radius-md);
     color: var(--color-text);
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
-    transition: border-color var(--transition-base);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6;
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-color: rgba(65, 196, 66, 0.5);
+    box-shadow: 0 0 0 3px rgba(65, 196, 66, 0.08);
   }
 
   .form-group textarea {
     resize: vertical;
     min-height: 120px;
-  }
-
-  .submit-button {
-    padding: var(--spacing-md) var(--spacing-2xl);
-    background-color: var(--color-text);
-    color: var(--color-bg);
-    border: 2px solid var(--color-text);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    align-self: flex-start;
-  }
-
-  .submit-button:hover {
-    background-color: transparent;
-    color: var(--color-text);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-
-  /* Contact Info Sidebar */
-  .contact-info {
-    background-color: var(--color-bg-card);
-    padding: var(--spacing-xl);
-    border-radius: var(--radius-lg);
-    height: fit-content;
-  }
-
-  .info-section {
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .info-section:last-child {
-    margin-bottom: 0;
-  }
-
-  .info-section h3 {
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: var(--font-size-sm);
-  }
-
-  .contact-link {
-    display: block;
-    color: var(--color-text);
-    font-size: var(--font-size-base);
-    text-decoration: none;
-    transition: color var(--transition-base);
-  }
-
-  .contact-link:hover {
-    color: var(--color-accent);
-  }
-
-  .info-text {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-base);
     line-height: 1.6;
   }
 
-  .social-links {
+  .form-error {
+    font-size: var(--font-size-sm);
+    color: #f87171;
+    line-height: 1.5;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(248, 113, 113, 0.08);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    border-radius: var(--radius-md);
+  }
+
+  .form-error a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+  }
+
+  .btn-ghost {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(65, 196, 66, 0.3);
+    color: var(--color-text);
+  }
+
+  .btn-submit {
+    position: relative;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    background: rgba(65, 196, 66, 0.12);
+    border: 1px solid rgba(65, 196, 66, 0.4);
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    color: var(--color-brand);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .btn-submit:hover {
+    background: rgba(65, 196, 66, 0.2);
+    border-color: var(--color-brand);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .btn-sending { display: none; }
+  .btn-submit.is-sending .btn-label   { display: none; }
+  .btn-submit.is-sending .btn-sending { display: inline; }
+
+  /* ── Success State ───────────────────────── */
+  .modal-success {
+    display: none;
+  }
+
+  .modal-success.is-visible {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl) 0;
   }
 
-  .social-link {
-    color: var(--color-text);
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(65, 196, 66, 0.1);
+    border: 1px solid rgba(65, 196, 66, 0.3);
+    border-radius: 50%;
+    color: var(--color-brand);
+  }
+
+  .modal-success h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .modal-success p {
     font-size: var(--font-size-base);
-    text-decoration: none;
-    transition: color var(--transition-base);
-    padding: var(--spacing-xs) 0;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 340px;
   }
 
-  .social-link:hover {
-    color: var(--color-accent);
+  .modal-success .card-cta {
+    margin-top: var(--spacing-sm);
+    align-self: center;
   }
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .contact-content {
+  /* ── Entrance Animation ──────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Responsive ──────────────────────────── */
+  @media (max-width: 600px) {
+    .contact-cards {
       grid-template-columns: 1fr;
     }
+  }
 
-    .contact-info {
-      order: -1;
+  /* ── Reduced Motion ──────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .contact-header,
+    .card {
+      animation: none;
+      opacity: 1;
+    }
+
+    .availability-dot { animation: none; }
+
+    .card,
+    .card::before,
+    .card-icon-badge {
+      transition: none;
     }
   }
 </style>
+
+<script>
+  const dialog    = document.getElementById('contact-dialog') as HTMLDialogElement;
+  const form      = document.getElementById('contact-form') as HTMLFormElement;
+  const success   = document.getElementById('modal-success') as HTMLElement;
+  const errorMsg  = document.getElementById('form-error') as HTMLElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  // ── Open ──────────────────────────────────
+  document.getElementById('open-contact-modal')!.addEventListener('click', () => {
+    dialog.showModal();
+    setTimeout(() => (dialog.querySelector('input') as HTMLElement)?.focus(), 50);
+  });
+
+  // ── Reset form to initial state ───────────
+  function resetForm() {
+    form.reset();
+    form.hidden = false;
+    success.classList.remove('is-visible');
+    errorMsg.hidden = true;
+    submitBtn.classList.remove('is-sending');
+    submitBtn.disabled = false;
+  }
+
+  // ── Close ─────────────────────────────────
+  function closeDialog() {
+    dialog.close(); // triggers the 'close' event below
+  }
+
+  document.getElementById('close-modal')!.addEventListener('click', closeDialog);
+  document.getElementById('cancel-modal')!.addEventListener('click', closeDialog);
+  document.getElementById('close-success')!.addEventListener('click', closeDialog);
+
+  // Close on backdrop click (click lands on <dialog> itself, not its children)
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) closeDialog();
+  });
+
+  // Reset whenever the dialog finishes closing (Escape key included)
+  dialog.addEventListener('close', resetForm);
+
+  // ── Submit ────────────────────────────────
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.hidden = true;
+    submitBtn.classList.add('is-sending');
+    submitBtn.disabled = true;
+
+    // Encode form data as application/x-www-form-urlencoded for Netlify Forms
+    const body = new URLSearchParams();
+    new FormData(form).forEach((val, key) => {
+      if (typeof val === 'string') body.append(key, val);
+    });
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+
+      if (res.ok) {
+        form.hidden = true;
+        success.classList.add('is-visible');
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch {
+      errorMsg.hidden = false;
+      submitBtn.classList.remove('is-sending');
+      submitBtn.disabled = false;
+    }
+  });
+</script>
