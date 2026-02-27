@@ -29,10 +29,9 @@ const navigation = {
 // Helper to check if link is active
 const isActive = (href: string) => currentPath === href || currentPath.startsWith(href + '/');
 
-// Helper to check if a section is active (heading or any child item)
+// Helper to check if a section heading is active (exact match only, not children)
 const isSectionActive = (section: typeof navigation.sections[0]) => {
-  if (isActive(section.href)) return true;
-  return section.items.some(item => isActive(item.href));
+  return currentPath === section.href;
 };
 ---
 
@@ -136,7 +135,7 @@ const isSectionActive = (section: typeof navigation.sections[0]) => {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding: 0 0 0 10px;
+    padding: 0;
     margin: 0;
     list-style: none;
   }
@@ -146,42 +145,75 @@ const isSectionActive = (section: typeof navigation.sections[0]) => {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: 400;
-    color: #808285;
     text-decoration: none;
     display: block;
-    transition: color 0.3s ease;
+    color: var(--color-text-secondary);
+    border-left: 2px solid transparent;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      transform var(--transition-fast);
   }
 
   .nav-heading:hover {
-    color: #a0a2a5;
+    color: var(--color-brand);
+    border-left-color: var(--color-brand-glow);
+    background-color: rgba(65, 196, 66, 0.05);
+    transform: translateX(2px);
   }
 
   .nav-heading.active {
-    color: #ffffff;
+    color: var(--color-text);
+    border-left-color: var(--color-brand);
+    background-color: rgba(65, 196, 66, 0.08);
+    box-shadow: inset 2px 0 6px rgba(65, 196, 66, 0.25);
+    transform: none;
   }
 
   .nav-link {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: 400;
-    color: #808285;
     text-decoration: none;
     display: block;
-    transition: color 0.3s ease;
     position: relative;
+    color: var(--color-text-secondary);
+    border-left: 2px solid transparent;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      transform var(--transition-fast);
   }
 
   .nav-link:hover {
-    color: #a0a2a5;
+    color: var(--color-brand);
+    border-left-color: var(--color-brand-glow);
+    background-color: rgba(65, 196, 66, 0.05);
+    transform: translateX(2px);
   }
 
   .nav-link.active {
-    color: #ffffff;
+    color: var(--color-text);
+    border-left-color: var(--color-brand);
+    background-color: rgba(65, 196, 66, 0.08);
+    box-shadow: inset 2px 0 6px rgba(65, 196, 66, 0.25);
+    transform: none;
   }
 
   /* Sub-item specific styles */
   .nav-sublink {
     font-size: 16px;
+    padding-left: calc(var(--spacing-sm) + 10px);
+  }
+
+  .nav-sublink:hover {
+    transform: none;
   }
 
   .bottom-links {
@@ -197,6 +229,18 @@ const isSectionActive = (section: typeof navigation.sections[0]) => {
       width: 100%;
       max-width: 155px;
       gap: 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-heading,
+    .nav-link {
+      transition: none;
+    }
+
+    .nav-heading:hover,
+    .nav-link:hover {
+      transform: none;
     }
   }
 </style>

@@ -88,19 +88,12 @@ const { Content } = await render(entry);
           <div class="label-line"></div>
         </div>
         <div class="education-item">
-          <h3>Bachelor of Science in Computer Science</h3>
-          <p class="institution">University Name</p>
-          <p class="duration">2013 - 2017</p>
-          <p class="details">Focus on Human-Computer Interaction and Software Engineering</p>
+          <h3>Bachelors of Arts in Studio Art with a focus in Graphic Design</h3>
+          <p class="institution">University of Alabama - Huntsville</p>
+          <p class="duration">2007 - 2015</p>
         </div>
       </section>
 
-      <!-- Download PDF -->
-      <div class="resume-actions">
-        <a href="/resume.pdf" download class="download-button">
-          Download PDF Resume
-        </a>
-      </div>
     </div>
 
     <aside class="timeline-column">
@@ -129,6 +122,46 @@ const { Content } = await render(entry);
     .timeline-column {
       display: block;
     }
+  }
+
+  /* Download button — brand-green fill with clipped top-right corner + shimmer */
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background-color: var(--color-brand);
+    color: var(--color-bg);
+    border: 1px solid var(--color-brand);
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+
+  .download-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-slow);
+  }
+
+  .download-button:hover {
+    box-shadow: 0 0 30px rgba(65, 196, 66, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .download-button:hover::before {
+    left: 100%;
   }
 </style>
 
@@ -259,52 +292,6 @@ const { Content } = await render(entry);
 
   .details {
     color: var(--color-text-secondary);
-  }
-
-  /* Actions */
-  .resume-actions {
-    margin-top: var(--spacing-3xl);
-    padding-top: var(--spacing-2xl);
-    border-top: 1px solid rgba(65, 196, 66, 0.1);
-  }
-
-  /* Download button — brand-green fill with clipped top-right corner + shimmer */
-  .download-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-md) var(--spacing-2xl);
-    background-color: var(--color-brand);
-    color: var(--color-bg);
-    border: 1px solid var(--color-brand);
-    font-family: var(--font-family-display);
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    text-decoration: none;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-    overflow: hidden;
-    position: relative;
-    transition: box-shadow var(--transition-base), transform var(--transition-base);
-  }
-
-  .download-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left var(--transition-slow);
-  }
-
-  .download-button:hover {
-    box-shadow: 0 0 30px rgba(65, 196, 66, 0.5);
-    transform: translateY(-2px);
-  }
-
-  .download-button:hover::before {
-    left: 100%;
   }
 
   /* Responsive */
